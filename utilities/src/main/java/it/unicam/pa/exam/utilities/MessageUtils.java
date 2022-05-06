@@ -7,5 +7,5 @@ class MessageUtils {
     public static String getMessage() {
         return "Hello      World!";
     }
-    //todo remove this before build
+    //todo remove this before final build
 }

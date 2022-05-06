@@ -1,4 +1,4 @@
-package it.unicam.pa.exam.list;
+package it.unicam.pa.exam.api;
 
 /**
  * Definisce una coordinata
@@ -14,9 +14,12 @@ public interface CoordinateInterface {
     /**
      * Setter per x e y
      */
-    void setPosition(int x, int y);
+    void setNewPosition(int x, int y);
 
     int getX();
 
     int getY();
+    int getMaxHeight();
+    int getMaxWidth();
+    CoordinateInterface getHome();
 }

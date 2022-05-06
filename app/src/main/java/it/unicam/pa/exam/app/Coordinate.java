@@ -1,6 +1,6 @@
 package it.unicam.pa.exam.app;
 
-import it.unicam.pa.exam.list.CoordinateInterface;
+import it.unicam.pa.exam.api.CoordinateInterface;
 
 /**
  * Classe che definisce una qualsiasi coordinata
@@ -8,12 +8,12 @@ import it.unicam.pa.exam.list.CoordinateInterface;
 public class Coordinate implements CoordinateInterface {
     private int x;
     private int y;
-    int xMaxCoordinate;
-    int yMaxCoordinate;
+    int maxHeight;
+    int maxWidth;
 
-    public Coordinate(int x, int y, int xMax, int yMax) {
-        setMaxX(xMax);
-        setMaxY(yMax);
+    public Coordinate(int x, int y, int maxHeight, int maxWidth) {
+        setMaxHeight(maxHeight);
+        setMaxWidth(maxWidth);
         setX(x);
         setY(y);
     }
@@ -33,59 +33,75 @@ public class Coordinate implements CoordinateInterface {
         return y;
     }
 
+    @Override
+    public int getMaxHeight() {
+        return maxHeight;
+    }
+
+    @Override
+    public int getMaxWidth() {
+        return maxWidth;
+    }
+
+
+    /**
+     *
+     * @return la "home" del sistema di riferimento, identificata come x/2,y/2
+     */
+    @Override
+    public CoordinateInterface getHome() {
+        return new Coordinate(x / 2, y / 2, maxHeight, maxWidth);
+    }
+
     /**
      * Imposta la coordinata del punto
      *
-     * @param x
-     * @param y
+     * @param x coordinata x
+     * @param y coordinata y
      */
     @Override
-    public void setPosition(int x, int y) {
+    public void setNewPosition(int x, int y) {
         setX(x);
         setY(y);
     }
 
     /**
-     * Setter del massimo valore assumibile da y
      *
-     * @param max
+     * @param max massimo valore assumibile in larghezza
      */
-    private void setMaxY(int max) {
+    private void setMaxWidth(int max) {
         if (max < 0)
             throw new IllegalArgumentException("Impossibile passare un parametro nullo");
-        this.yMaxCoordinate = max;
+        this.maxWidth = max;
     }
 
 
     /**
-     * Setter del massimo valore assumibile da x
      *
-     * @param max
+     * @param max massimo valore assumibile in altezza
      */
-    private void setMaxX(int max) {
+    private void setMaxHeight(int max) {
         if (max < 0)
             throw new IllegalArgumentException("Impossibile passare un parametro nullo");
-        this.xMaxCoordinate = max;
+        this.maxHeight = max;
     }
 
     /**
-     * Setter della coordinata x
      *
-     * @param x
+     * @param x coordinata
      */
     public void setX(int x) {
-        if (x > xMaxCoordinate || x < 0)
+        if (x > maxHeight || x < 0)
             throw new IllegalArgumentException("Parametro superiore al massimo per il sistema di riferimento");
         this.x = x;
     }
 
     /**
-     * Setter della coordinata y
      *
-     * @param y
+     * @param y coordinata
      */
     public void setY(int y) {
-        if (y > yMaxCoordinate || y < 0)
+        if (y > maxWidth || y < 0)
             throw new IllegalArgumentException("Parametro superiore al massimo per il sistema di riferimento");
         this.y = y;
     }

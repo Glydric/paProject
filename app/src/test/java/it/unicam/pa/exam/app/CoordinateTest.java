@@ -3,7 +3,7 @@
  */
 package it.unicam.pa.exam.app;
 
-import it.unicam.pa.exam.list.CoordinateInterface;
+import it.unicam.pa.exam.api.CoordinateInterface;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,17 +23,17 @@ class CoordinateTest {
     @Test
     void testSet() {
         CoordinateInterface c = new Coordinate(10, 20, 50, 60);
-        c.setPosition(30, 40);
+        c.setNewPosition(30, 40);
 
         assertEquals(30, c.getX());
         assertEquals(40, c.getY());
 
-        c.setPosition(50, 60);
+        c.setNewPosition(50, 60);
 
-        assertThrows(IllegalArgumentException.class, () -> c.setPosition(100, 40));
-        assertThrows(IllegalArgumentException.class, () -> c.setPosition(10, 90));
-        assertThrows(IllegalArgumentException.class, () -> c.setPosition(-1, 30));
-        assertThrows(IllegalArgumentException.class, () -> c.setPosition(10, -90));
+        assertThrows(IllegalArgumentException.class, () -> c.setNewPosition(100, 40));
+        assertThrows(IllegalArgumentException.class, () -> c.setNewPosition(10, 90));
+        assertThrows(IllegalArgumentException.class, () -> c.setNewPosition(-1, 30));
+        assertThrows(IllegalArgumentException.class, () -> c.setNewPosition(10, -90));
     }
 
     @Test
@@ -42,7 +42,7 @@ class CoordinateTest {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 20; j++) {
-                c.setPosition(i, j);
+                c.setNewPosition(i, j);
                 assertEquals(c.getPositionAsArray()[0], c.getX());
                 assertEquals(i, c.getX());
 
@@ -50,5 +50,10 @@ class CoordinateTest {
                 assertEquals(j, c.getY());
             }
         }
+    }
+    @Test
+    void testGetMax(){
+        CoordinateInterface c = new SquareCoordinate(0,0,250);
+
     }
 }
