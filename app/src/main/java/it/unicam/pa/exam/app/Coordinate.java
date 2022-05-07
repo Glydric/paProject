@@ -2,6 +2,8 @@ package it.unicam.pa.exam.app;
 
 import it.unicam.pa.exam.api.CoordinateInterface;
 
+import java.util.Objects;
+
 /**
  * Classe che definisce una qualsiasi coordinata
  */
@@ -104,5 +106,20 @@ public class Coordinate implements CoordinateInterface {
         if (y > maxWidth || y < 0)
             throw new IllegalArgumentException("Parametro superiore al massimo per il sistema di riferimento");
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coordinate that)) return false;
+        return getX() == that.getX()
+                && getY() == that.getY()
+                && getMaxHeight() == that.getMaxHeight()
+                && getMaxWidth() == that.getMaxWidth();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getX(), getY(), getMaxHeight(), getMaxWidth());
     }
 }

@@ -22,4 +22,5 @@ public interface CoordinateInterface {
     int getMaxHeight();
     int getMaxWidth();
     CoordinateInterface getHome();
+
 }
