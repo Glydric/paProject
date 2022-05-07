@@ -1,6 +1,14 @@
 # Miscellaneous
 *.class
-.DS_Store
 .gradle
 .idea
 */build
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
