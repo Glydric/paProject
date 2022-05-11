@@ -8,31 +8,31 @@ import java.util.Objects;
  * Classe che definisce una qualsiasi coordinata
  */
 public class Coordinate implements CoordinateInterface {
-    private int x;
-    private int y;
+    private int height;
+    private int width;
     int maxHeight;
     int maxWidth;
 
-    public Coordinate(int x, int y, int maxHeight, int maxWidth) {
+    public Coordinate(int height, int width, int maxHeight, int maxWidth) {
         setMaxHeight(maxHeight);
         setMaxWidth(maxWidth);
-        setX(x);
-        setY(y);
+        setHeight(height);
+        setWidth(width);
     }
 
     @Override
     public int[] getPositionAsArray() {
-        return new int[]{x, y};
+        return new int[]{height, width};
     }
 
     @Override
-    public int getX() {
-        return x;
+    public int getHeight() {
+        return height;
     }
 
     @Override
-    public int getY() {
-        return y;
+    public int getWidth() {
+        return width;
     }
 
     @Override
@@ -47,28 +47,26 @@ public class Coordinate implements CoordinateInterface {
 
 
     /**
-     *
      * @return la "home" del sistema di riferimento, identificata come x/2,y/2
      */
     @Override
     public CoordinateInterface getHome() {
-        return new Coordinate(x / 2, y / 2, maxHeight, maxWidth);
+        return new Coordinate(height / 2, width / 2, maxHeight, maxWidth);
     }
 
     /**
      * Imposta la coordinata del punto
      *
-     * @param x coordinata x
-     * @param y coordinata y
+     * @param height coordinata x
+     * @param width  coordinata y
      */
     @Override
-    public void setNewPosition(int x, int y) {
-        setX(x);
-        setY(y);
+    public void setNewPosition(int height, int width) {
+        setHeight(height);
+        setWidth(width);
     }
 
     /**
-     *
      * @param max massimo valore assumibile in larghezza
      */
     private void setMaxWidth(int max) {
@@ -79,7 +77,6 @@ public class Coordinate implements CoordinateInterface {
 
 
     /**
-     *
      * @param max massimo valore assumibile in altezza
      */
     private void setMaxHeight(int max) {
@@ -89,37 +86,36 @@ public class Coordinate implements CoordinateInterface {
     }
 
     /**
-     *
-     * @param x coordinata
+     * @param height coordinata
      */
-    public void setX(int x) {
-        if (x > maxHeight || x < 0)
-            throw new IllegalArgumentException("Parametro superiore al massimo per il sistema di riferimento");
-        this.x = x;
+    public void setHeight(int height) {
+        if (height < 0)
+            throw new IllegalArgumentException("Parametro height negativo");
+
+        this.height = Math.min(height, maxHeight);
     }
 
     /**
-     *
-     * @param y coordinata
+     * @param width coordinata
      */
-    public void setY(int y) {
-        if (y > maxWidth || y < 0)
-            throw new IllegalArgumentException("Parametro superiore al massimo per il sistema di riferimento");
-        this.y = y;
+    public void setWidth(int width) {
+        if (width < 0)
+            throw new IllegalArgumentException("Parametro width negativo");
+        this.width = Math.min(width, maxWidth);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Coordinate that)) return false;
-        return getX() == that.getX()
-                && getY() == that.getY()
+        return getHeight() == that.getHeight()
+                && getWidth() == that.getWidth()
                 && getMaxHeight() == that.getMaxHeight()
                 && getMaxWidth() == that.getMaxWidth();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getX(), getY(), getMaxHeight(), getMaxWidth());
+        return Objects.hash(getHeight(), getWidth(), getMaxHeight(), getMaxWidth());
     }
 }

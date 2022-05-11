@@ -14,11 +14,11 @@ public interface CoordinateInterface {
     /**
      * Setter per x e y
      */
-    void setNewPosition(int x, int y);
+    void setNewPosition(int height, int width);
 
-    int getX();
+    int getHeight();
 
-    int getY();
+    int getWidth();
     int getMaxHeight();
     int getMaxWidth();
     CoordinateInterface getHome();

@@ -11,8 +11,8 @@ public class EnvironmentTest {
     @Test
     void constructorTest(){
         EnvironmentInterface e = new SquareEnvironment(50,new Color(255,0,0));
-        assertEquals(50,e.getHeight());
-        assertEquals(50,e.getWidth());
+        assertEquals(50,e.getCursor().getPosition().getMaxHeight());
+        assertEquals(50,e.getCursor().getPosition().getMaxWidth());
     }
     @Test
     void writeTest(){

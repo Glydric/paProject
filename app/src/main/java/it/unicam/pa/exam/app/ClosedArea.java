@@ -23,11 +23,6 @@ public class ClosedArea implements ClosedAreaInterface {
 
     @Override
     public boolean isClosed() {
-        /*
-            conta tutti gli angoli (inizi e fine delle linee)
-            se il numero degli angoli è uguale al numero delle linee allora la figura è chiusa
-         */
-
         return Stream.concat(
                         lines.stream()
                                 .map(LineInterface::getBegin)

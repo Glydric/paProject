@@ -7,30 +7,16 @@ import java.util.ArrayList;
 
 public class Environment implements EnvironmentInterface {
     public Color backgroundColor;
-    public CursorInterface cursor;
+    private CursorInterface cursor;
     private final ArrayList<ClosedAreaInterface> areas = new ArrayList<>();
 
+    Environment(int height, int width) {
+        backgroundColor = Color.white;
+        setCursor(height, width);
+    }
     Environment(int height, int width, Color bgColor) {
         backgroundColor = bgColor;
         setCursor(height, width);
-    }
-
-    /**
-     * @return la posizione del cursore
-     */
-    @Override
-    public CoordinateInterface getCursorCoordinate() {
-        return cursor.getPosition();
-    }
-
-    @Override
-    public int getHeight() {
-        return getCursorCoordinate().getMaxHeight();
-    }
-
-    @Override
-    public int getWidth() {
-        return getCursorCoordinate().getMaxWidth();
     }
 
     @Override
@@ -58,5 +44,10 @@ public class Environment implements EnvironmentInterface {
         if (height < 0 || width < 0)
             throw new IllegalArgumentException("x o y non possono essere negativi");
         this.cursor = new Cursor(new Coordinate(0, 0, height, width));
+    }
+
+    @Override
+    public CursorInterface getCursor() {
+        return cursor;
     }
 }

@@ -13,7 +13,7 @@ public class IntegerAngleTest {
         assertEquals(100, d.getAngle());
 
         AngleInterface<Integer> di = new IntegerAngle();
-        assertEquals(0,di.getAngle());
+        assertEquals(0, di.getAngle());
     }
 
     @Test
@@ -23,8 +23,13 @@ public class IntegerAngleTest {
         assertEquals(360, d.getAngle());
         d.setAngle(0);
         assertEquals(0, d.getAngle());
-
-        assertThrows(IllegalArgumentException.class, () -> d.setAngle(370));
+        d.setAngle(370);
+        assertEquals(10, d.getAngle());
         assertThrows(IllegalArgumentException.class, () -> d.setAngle(-10));
+        d.setAngle(360);
+        assertEquals(360, d.getAngle());
+
+        AngleInterface<Integer> di = new IntegerAngle(90,90);
+        assertEquals(90, di.getAngle());
     }
 }

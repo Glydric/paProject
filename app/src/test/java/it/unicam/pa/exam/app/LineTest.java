@@ -15,12 +15,12 @@ public class LineTest {
                 new SquareCoordinate(10, 20, 50),
                 new SquareCoordinate(15, 25, 50),
                 new Color(0, 255, 0));
-        assertEquals(10, l.getBegin().getX());
-        assertEquals(20, l.getBegin().getY());
+        assertEquals(10, l.getBegin().getHeight());
+        assertEquals(20, l.getBegin().getWidth());
         assertEquals(50, l.getBegin().getMaxHeight());
 
-        assertEquals(15, l.getEnd().getX());
-        assertEquals(25, l.getEnd().getY());
+        assertEquals(15, l.getEnd().getHeight());
+        assertEquals(25, l.getEnd().getWidth());
         assertEquals(50, l.getEnd().getMaxHeight());
 
     }

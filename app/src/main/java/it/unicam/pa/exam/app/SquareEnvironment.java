@@ -6,4 +6,7 @@ public class SquareEnvironment extends Environment {
     SquareEnvironment(int size, Color bgColor) {
         super(size,size, bgColor);
     }
+    SquareEnvironment(int size) {
+        super(size,size);
+    }
 }

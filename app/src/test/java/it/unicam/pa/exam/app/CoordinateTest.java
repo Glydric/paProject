@@ -13,11 +13,11 @@ class CoordinateTest {
     @Test
     void testConstructor() {
         CoordinateInterface c = new SquareCoordinate(10, 20, 300);
-        assertEquals(10, c.getX());
-        assertEquals(20, c.getY());
+        assertEquals(10, c.getHeight());
+        assertEquals(20, c.getWidth());
         CoordinateInterface co = new Coordinate(10, 20, 300, 200);
-        assertEquals(10, c.getX());
-        assertEquals(20, c.getY());
+        assertEquals(10, c.getHeight());
+        assertEquals(20, c.getWidth());
     }
 
     @Test
@@ -25,8 +25,8 @@ class CoordinateTest {
         CoordinateInterface c = new Coordinate(10, 20, 50, 60);
         c.setNewPosition(30, 40);
 
-        assertEquals(30, c.getX());
-        assertEquals(40, c.getY());
+        assertEquals(30, c.getHeight());
+        assertEquals(40, c.getWidth());
 
         c.setNewPosition(50, 60);
 
@@ -43,11 +43,11 @@ class CoordinateTest {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 20; j++) {
                 c.setNewPosition(i, j);
-                assertEquals(c.getPositionAsArray()[0], c.getX());
-                assertEquals(i, c.getX());
+                assertEquals(c.getPositionAsArray()[0], c.getHeight());
+                assertEquals(i, c.getHeight());
 
-                assertEquals(c.getPositionAsArray()[1], c.getY());
-                assertEquals(j, c.getY());
+                assertEquals(c.getPositionAsArray()[1], c.getWidth());
+                assertEquals(j, c.getWidth());
             }
         }
     }

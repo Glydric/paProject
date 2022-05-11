@@ -9,14 +9,14 @@ public class CursorTest {
     @Test
     void constructorTest(){
         CursorInterface c = new Cursor(new Coordinate(50,60,100,100));
-        assertEquals(50,c.getPosition().getX());
-        assertEquals(60,c.getPosition().getY());
+        assertEquals(50,c.getPosition().getHeight());
+        assertEquals(60,c.getPosition().getWidth());
     }
     @Test
     void moveCursorTest(){
         CursorInterface c = new Cursor(new Coordinate(50,60,100,100),30);
         c.moveCursor(10);
-        assertEquals(70,c.getPosition().getX());
-        assertEquals(71,c.getPosition().getY());
+        assertEquals(70,c.getPosition().getHeight());
+        assertEquals(71,c.getPosition().getWidth());
     }
 }

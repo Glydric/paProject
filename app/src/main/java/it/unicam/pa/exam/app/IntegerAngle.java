@@ -43,7 +43,13 @@ public class IntegerAngle implements AngleInterface<Integer> {
      */
     @Override
     public void setAngle(Integer angle) {
+        if (angle < 0)
+            throw new IllegalArgumentException("L'angolo non può essere negativo");
+
         this.angle = Math.abs(angle % max);
+
+        if (this.angle == 0 && angle != 0)
+            this.angle = max;
     }
 
     /**

@@ -38,6 +38,11 @@ public class Cursor implements CursorInterface {
         this(position, new IntegerAngle());
     }
 
+    @Override
+    public AngleInterface<Integer> getDirection() {
+        return direction;
+    }
+
     /**
      * @return la posizione del cursore
      */
@@ -48,15 +53,34 @@ public class Cursor implements CursorInterface {
 
     @Override
     public void moveCursor(int road) {
+        if (direction.getAngle() % 90 != 0)
+            trianglePosition(road);
+        else
+            position.setNewPosition(
+                    position.getHeight() + (direction.getAngle() == 90
+                            ? road
+                            : 0),
+                    position.getWidth() + (direction.getAngle() == 0
+                            ? road
+                            : 0)
+            );
+    }
+
+    private void trianglePosition(int road) {
         TriangleInterface<Integer> t = new IntegerTriangle(road, direction);
         position.setNewPosition(
-                position.getX() + t.calcHorizontalCatFromDegrees(),
-                position.getY() + t.calcVerticalCatFromDegrees());
+                position.getHeight() + t.calcHorizontalCatFromDegrees(),
+                position.getWidth() + t.calcVerticalCatFromDegrees()
+        );
     }
 
     @Override
     public void setDirection(AngleInterface<Integer> newDirection) {
         this.direction = newDirection;
+    }
+
+    public void setDirection(int direction) {
+        this.direction.setAngle(direction);
     }
 
     private void setPosition(CoordinateInterface position) {

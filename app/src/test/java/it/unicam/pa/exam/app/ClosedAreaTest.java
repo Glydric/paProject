@@ -17,10 +17,10 @@ public class ClosedAreaTest {
                     new SquareCoordinate(15, 20, 50),
                     new Color(255, 0, 0)
         ));
-        assertEquals(10,a.getLines().get(0).getBegin().getX());
-        assertEquals(25,a.getLines().get(0).getBegin().getY());
-        assertEquals(15,a.getLines().get(0).getEnd().getX());
-        assertEquals(20,a.getLines().get(0).getEnd().getY());
+        assertEquals(10,a.getLines().get(0).getBegin().getHeight());
+        assertEquals(25,a.getLines().get(0).getBegin().getWidth());
+        assertEquals(15,a.getLines().get(0).getEnd().getHeight());
+        assertEquals(20,a.getLines().get(0).getEnd().getWidth());
     }
     @Test
     void isClosedTest() {

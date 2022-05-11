@@ -59,8 +59,10 @@ public class IntegerTriangle implements TriangleInterface<Integer> {
     }
 
     @Override
-    public void setAngle(Integer x) {
-        angle = new IntegerAngle(x, 90);
+    public void setAngle(Integer angle) {
+        if (angle % 90 == 0)
+            throw new IllegalArgumentException("l'angolo di un triangolo non può essere 0 o multiplo di 90");
+        this.angle = new IntegerAngle(angle, 90);
     }
 
     @Override
@@ -85,16 +87,16 @@ public class IntegerTriangle implements TriangleInterface<Integer> {
 
 
     /**
-     *
      * @return il cateto orizzontale calcolato usando ipotenusa ed angolo
      */
     public Integer calcHorizontalCatFromDegrees() {
-        return (int) (ipo / Math.sin(angle.getDegrees()));
+        if (angle.getDegrees() != 0)
+            return (int) (ipo / Math.sin(angle.getDegrees()));
+        return 0;
     }
 
     /**
      * @return il cateto verticale calcolato usando ipotenusa ed angolo
-
      */
     @Override
     public Integer calcVerticalCatFromDegrees() {
