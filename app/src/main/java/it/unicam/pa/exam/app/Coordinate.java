@@ -116,6 +116,6 @@ public class Coordinate implements CoordinateInterface {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getHeight(), getWidth(), getMaxHeight(), getMaxWidth());
+        return Objects.hash(height, width, maxHeight, maxWidth);
     }
 }
