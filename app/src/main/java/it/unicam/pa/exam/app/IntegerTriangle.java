@@ -11,7 +11,7 @@ public class IntegerTriangle implements TriangleInterface<Integer> {
     private int horizontalCat;
     private int verticalCat;
     private int ipo;
-    IntegerAngle angle = new IntegerAngle(0, 90);
+    IntegerAngle angle;
 
     /*
      * La somma degli angoli forma 180º
@@ -19,7 +19,6 @@ public class IntegerTriangle implements TriangleInterface<Integer> {
      * se un angolo è di xº l'altro sarà di 90-xº
      *
      */
-    final AngleInterface<Integer> angleSum = new IntegerAngle(90);
 
     public IntegerTriangle(int ipo, int angle) {
         setIpo(ipo);

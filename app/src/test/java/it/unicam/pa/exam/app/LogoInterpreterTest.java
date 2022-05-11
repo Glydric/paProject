@@ -29,8 +29,10 @@ public class LogoInterpreterTest {
         l.forward(40);
         assertEquals(50, l.getEnvironment().getCursor().getPosition().getWidth());
 
-        //l.right(new IntegerAngle(20));
-        //assertEquals(50, l.getEnvironment().getCursor().getPosition().getWidth());
+        /*
+        l.right(new IntegerAngle(20));
+        assertEquals(50, l.getEnvironment().getCursor().getPosition().getWidth());
+         */
     }
 
     @Test

@@ -28,12 +28,11 @@ class CoordinateTest {
         assertEquals(30, c.getHeight());
         assertEquals(40, c.getWidth());
 
-        c.setNewPosition(50, 60);
+        c.setNewPosition(100, 40);
+        assertEquals(c.getMaxHeight(),c.getHeight());
 
-        assertThrows(IllegalArgumentException.class, () -> c.setNewPosition(100, 40));
-        assertThrows(IllegalArgumentException.class, () -> c.setNewPosition(10, 90));
-        assertThrows(IllegalArgumentException.class, () -> c.setNewPosition(-1, 30));
-        assertThrows(IllegalArgumentException.class, () -> c.setNewPosition(10, -90));
+        c.setNewPosition(10, 1280);
+        assertEquals(c.getMaxWidth(),c.getWidth());
     }
 
     @Test
