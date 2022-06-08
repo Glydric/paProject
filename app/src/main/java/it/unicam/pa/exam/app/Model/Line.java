@@ -12,8 +12,8 @@ public final class Line implements LineInterface {
 
 
     public Line(Coordinate begin, Coordinate end, Color color) {
-        if (begin.getMaxX() != end.getMaxX()
-                || begin.getMaxY() != end.getMaxY())
+        if (begin.getHeight() != end.getHeight()
+                || begin.getWidth() != end.getWidth())
             throw new IllegalArgumentException("Le due coordinate devono avere lo stesso sistema di riferimento");
         this.begin = begin;
         this.end = end;

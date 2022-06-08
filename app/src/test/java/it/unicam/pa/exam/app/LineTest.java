@@ -1,6 +1,5 @@
 package it.unicam.pa.exam.app;
 
-import it.unicam.pa.exam.api.LineInterface;
 import it.unicam.pa.exam.app.Model.Line;
 import it.unicam.pa.exam.app.Model.SquareCoordinate;
 import org.junit.jupiter.api.Test;
@@ -19,13 +18,13 @@ public class LineTest {
                 new Color(0, 255, 0));
         assertEquals(10, l.getBegin().getX());
         assertEquals(20, l.getBegin().getY());
-        assertEquals(50, l.getBegin().getMaxX());
-        assertEquals(50, l.getBegin().getMaxY());
+        assertEquals(50, l.getBegin().getHeight());
+        assertEquals(50, l.getBegin().getWidth());
 
         assertEquals(15, l.getEnd().getX());
         assertEquals(25, l.getEnd().getY());
-        assertEquals(50, l.getEnd().getMaxX());
-        assertEquals(50, l.getEnd().getMaxY());
+        assertEquals(50, l.getEnd().getHeight());
+        assertEquals(50, l.getEnd().getWidth());
 
     }
 

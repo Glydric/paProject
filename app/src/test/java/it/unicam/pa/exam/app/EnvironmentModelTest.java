@@ -12,8 +12,8 @@ public class EnvironmentModelTest {
     @Test
     void constructorTest(){
         EnvironmentModel e = new SquareEnvironmentModel(50,new Color(255,0,0));
-        assertEquals(50,e.getCursor().getPosition().getMaxX());
-        assertEquals(50,e.getCursor().getPosition().getMaxY());
+        assertEquals(50,e.getCursor().getPosition().getHeight());
+        assertEquals(50,e.getCursor().getPosition().getWidth());
     }
     @Test
     void writeTest(){

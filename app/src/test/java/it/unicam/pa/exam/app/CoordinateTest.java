@@ -29,10 +29,10 @@ class CoordinateTest {
         assertEquals(40, c.getY());
 
         c.setLocation(100, 40);
-        assertEquals(c.getMaxX(),c.getX());
+        assertEquals(c.getHeight(),c.getX());
 
         c.setLocation(10, 1280);
-        assertEquals(c.getMaxY(),c.getY());
+        assertEquals(c.getWidth(),c.getY());
     }
 
     @Test
