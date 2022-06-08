@@ -1,4 +1,4 @@
-package it.unicam.pa.exam.app.Model;
+package it.unicam.pa.exam.app.Module;
 
 import it.unicam.pa.exam.api.ClosedAreaInterface;
 import it.unicam.pa.exam.api.LineInterface;

@@ -1,6 +1,9 @@
-package it.unicam.pa.exam.app.Model;
+package it.unicam.pa.exam.app.Controller;
 
 import it.unicam.pa.exam.api.LogoInterpreterInterface;
+import it.unicam.pa.exam.app.Module.Coordinate;
+import it.unicam.pa.exam.app.Module.EnvironmentModel;
+import it.unicam.pa.exam.app.Module.IntegerAngle;
 
 import java.util.ArrayList;
 import java.util.List;

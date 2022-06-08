@@ -1,4 +1,4 @@
-package it.unicam.pa.exam.app.Model;
+package it.unicam.pa.exam.app.Module;
 
 /**
  * Classe che definisce una coordinata per un sistema di riferimento quadrato

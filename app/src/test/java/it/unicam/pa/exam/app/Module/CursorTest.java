@@ -1,8 +1,8 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Module;
 
-import it.unicam.pa.exam.app.Model.Coordinate;
-import it.unicam.pa.exam.app.Model.Cursor;
-import it.unicam.pa.exam.app.Model.SquareCoordinate;
+import it.unicam.pa.exam.app.Module.Coordinate;
+import it.unicam.pa.exam.app.Module.Cursor;
+import it.unicam.pa.exam.app.Module.SquareCoordinate;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

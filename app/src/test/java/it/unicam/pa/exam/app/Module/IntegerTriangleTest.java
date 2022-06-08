@@ -1,6 +1,6 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Module;
 
-import it.unicam.pa.exam.app.Model.IntegerTriangle;
+import it.unicam.pa.exam.app.Module.IntegerTriangle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

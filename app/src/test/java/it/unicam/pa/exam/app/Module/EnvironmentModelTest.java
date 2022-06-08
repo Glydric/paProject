@@ -1,7 +1,7 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Module;
 
-import it.unicam.pa.exam.app.Model.EnvironmentModel;
-import it.unicam.pa.exam.app.Model.SquareEnvironmentModel;
+import it.unicam.pa.exam.app.Module.EnvironmentModel;
+import it.unicam.pa.exam.app.Module.SquareEnvironmentModel;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;

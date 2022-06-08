@@ -1,7 +1,7 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Module;
 
-import it.unicam.pa.exam.app.Model.Line;
-import it.unicam.pa.exam.app.Model.SquareCoordinate;
+import it.unicam.pa.exam.app.Module.Line;
+import it.unicam.pa.exam.app.Module.SquareCoordinate;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;

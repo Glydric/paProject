@@ -1,6 +1,9 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Controller;
 
-import it.unicam.pa.exam.app.Model.*;
+import it.unicam.pa.exam.app.Controller.LogoController;
+import it.unicam.pa.exam.app.Module.EnvironmentModel;
+import it.unicam.pa.exam.app.Module.IntegerAngle;
+import it.unicam.pa.exam.app.Module.SquareEnvironmentModel;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

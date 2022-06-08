@@ -1,9 +1,9 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Module;
 
 import it.unicam.pa.exam.api.ClosedAreaInterface;
-import it.unicam.pa.exam.app.Model.ClosedArea;
-import it.unicam.pa.exam.app.Model.Line;
-import it.unicam.pa.exam.app.Model.SquareCoordinate;
+import it.unicam.pa.exam.app.Module.ClosedArea;
+import it.unicam.pa.exam.app.Module.Line;
+import it.unicam.pa.exam.app.Module.SquareCoordinate;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;

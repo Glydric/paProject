@@ -1,4 +1,4 @@
-package it.unicam.pa.exam.app.Model;
+package it.unicam.pa.exam.app.Module;
 
 import java.awt.*;
 
