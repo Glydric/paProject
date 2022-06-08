@@ -47,6 +47,15 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
         }
     }
 
+    private void noValueSwitcher(String command) {
+        switch (command) {
+            case "CLEARSCREEN", "CS" -> clear();
+            case "HOME" -> home();
+            case "PENUP", "PU" -> penUp();
+            case "PENDOWN", "PD" -> penDown();
+        }
+    }
+
     private void singleIntegerSwitcher(String command, int value) {
         switch (command) {
             case "FORWARD", "FD" -> forward(value);
@@ -74,17 +83,10 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
         }
     }
 
-    private void noValueSwitcher(String command) {
-        switch (command) {
-            case "CLEARSCREEN", "CS" -> clear();
-            case "HOME" -> home();
-            case "PENUP", "PU" -> penUp();
-            case "PENDOWN", "PD" -> penDown();
-        }
-    }
 
     /**
      * Skip first element that is the actual command
+     *
      * @param values the list
      * @return an array of int
      */
@@ -96,16 +98,29 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
                 .toArray();
     }
 
+    /**
+     * l'equivalente comando LOGO "forward dist"
+     * @param dist la distanza da percorrere
+     */
     @Override
     public void forward(int dist) {
         environment.getCursor().moveCursor(dist);
     }
 
+    /**
+     * l'equivalente comando LOGO "backward dist"
+     * @param dist la distanza da percorrere
+     */
     @Override
     public void backward(int dist) {
         forward(-dist);
     }
 
+
+    /**
+     * l'equivalente comando LOGO "left angle"
+     * @param angle l'angolo di rotazione da applicare
+     */
     @Override
     public void left(IntegerAngle angle) {
         environment
@@ -114,6 +129,10 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
                 .addAngle(angle.getAngle());
     }
 
+    /**
+     * l'equivalente comando LOGO "right angle"
+     * @param angle l'angolo di rotazione da applicare
+     */
     @Override
     public void right(IntegerAngle angle) {
         left(new IntegerAngle(
@@ -122,46 +141,93 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
         );
     }
 
+    /**
+     * l'equivalente comando LOGO "clean"
+     * Pulisce l'area di lavoro
+     */
     @Override
     public void clear() {
 
     }
 
+    /**
+     * l'equivalente comando LOGO "home"
+     * muove il cursore nella posizione home
+     */
     @Override
     public void home() {
 
     }
 
+    /**
+     * l'equivalente comando LOGO "penup"
+     * stacca la "penna" dall'area di scrittura
+     */
     @Override
     public void penUp() {
 
     }
 
+    /**
+     * l'equivalente comando LOGO "pendown"
+     * attacca la "penna" all'area di scrittura
+     */
     @Override
     public void penDown() {
 
     }
 
+    /**
+     * l'equivalente comando LOGO "setpencolor byte byte byte"
+     * modifica il colore della penna
+     */
     @Override
     public void setPenColor(byte r, byte g, byte b) {
 
     }
 
+    /**
+     * l'equivalente comando LOGO "setfillcolor byte byte byte"
+     * modifica il colore di riempimento di un'area chiusa
+     * @param r indica l'intensità del rosso
+     * @param g indica l'intensità del verde
+     * @param b indica l'intensità del blu
+     */
     @Override
     public void setFillColor(byte r, byte g, byte b) {
 
     }
 
+    /**
+     * l'equivalente comando LOGO "setscreencolor byte byte byte"
+     * modifica il colore di sfondo
+     * @param r indica l'intensità del rosso
+     * @param g indica l'intensità del verde
+     * @param b indica l'intensità del blu
+     */
     @Override
     public void setScreenColor(byte r, byte g, byte b) {
 
     }
 
+    /**
+     * l'equivalente comando LOGO "setpensize size"
+     * modifica la dimensione della penna
+     * @param size indica la dimensione della penna
+     */
     @Override
     public void setPenSize(int size) {
 
     }
 
+    /**
+     * l'equivalente comando LOGO "repeat num [commands]"
+     * modifica il colore di riempimento di un'area chiusa
+     * @param num  indica il numero di esecuzioni
+     * @param list una lista di comandi da eseguire in ordine
+     * La lista di comandi è una lista di stringhe
+     * da passare successivamente ad execute()
+     */
     @Override
     public void repeat(int num, List<String> list) {
 
