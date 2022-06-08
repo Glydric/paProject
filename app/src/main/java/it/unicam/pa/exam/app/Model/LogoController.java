@@ -3,7 +3,6 @@ package it.unicam.pa.exam.app.Model;
 import it.unicam.pa.exam.api.LogoInterpreterInterface;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
@@ -18,11 +17,11 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
     }
 
     public LogoController(Coordinate c) {
-        this(c.x, c.y);
+        this(c.x, c.y);//todo check if using x or height and y or width
     }
 
-    public LogoController(int x, int y) {
-        this.environment = new EnvironmentModel(x, y);
+    public LogoController(int height, int width) {
+        this.environment = new EnvironmentModel(height, width);
     }
 
     /**
@@ -116,7 +115,6 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
         forward(-dist);
     }
 
-
     /**
      * l'equivalente comando LOGO "left angle"
      * @param angle l'angolo di rotazione da applicare
@@ -147,7 +145,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
      */
     @Override
     public void clear() {
-
+        environment.clear();
     }
 
     /**

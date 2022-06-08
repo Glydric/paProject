@@ -10,6 +10,6 @@ public class SquareCoordinate extends Coordinate {
 
     @Override
     public Coordinate getHome() {
-        return new SquareCoordinate(x / 2, y / 2, xMax);
+        return new SquareCoordinate(x / 2, y / 2, height);
     }
 }

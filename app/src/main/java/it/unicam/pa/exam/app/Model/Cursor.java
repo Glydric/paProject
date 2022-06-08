@@ -5,15 +5,17 @@ import it.unicam.pa.exam.api.CursorInterface;
 public class Cursor implements CursorInterface<IntegerAngle> {
     private Coordinate position;
     private IntegerAngle direction;
+    private int size;
 
     /**
      * Costruttore per un cursore che definisce la direzione iniziale
      *
      * @param position la posizione iniziale
      */
-    Cursor(Coordinate position, IntegerAngle direction) {
+    public Cursor(Coordinate position, IntegerAngle direction, int size) {
         setPosition(position);
         setDirection(direction);
+        setSize(size);
     }
 
     /**
@@ -21,9 +23,8 @@ public class Cursor implements CursorInterface<IntegerAngle> {
      *
      * @param position la posizione iniziale
      */
-    public Cursor(Coordinate position, int direction) {
-        setPosition(position);
-        setDirection(new IntegerAngle(direction));
+    public Cursor(Coordinate position, int direction, int size) {
+        this(position, new IntegerAngle(direction), size);
     }
 
     /**
@@ -31,8 +32,32 @@ public class Cursor implements CursorInterface<IntegerAngle> {
      *
      * @param position la posizione iniziale
      */
+    public Cursor(Coordinate position, int size) {
+        this(position, new IntegerAngle(), size);
+    }
+
+    /**
+     * Costruttore per un cursore che NON definisce ne la direzione iniziale ne la dimensione di "scrittura"
+     *
+     * @param position la posizione iniziale
+     */
     public Cursor(Coordinate position) {
-        this(position, new IntegerAngle());
+        this(position, new IntegerAngle(), 1);
+    }
+
+    private void trianglePosition(int road) {
+        IntegerTriangle t = new IntegerTriangle(
+                Math.abs(road)
+                ,
+                road > 0
+                        ? direction
+                        : direction.getInvertedAngle()
+        );
+
+        position.setLocation(
+                position.getX() + t.calcHorizontalCatFromDegrees(),
+                position.getY() + t.calcVerticalCatFromDegrees()
+        );
     }
 
     @Override
@@ -77,21 +102,6 @@ public class Cursor implements CursorInterface<IntegerAngle> {
         }
     }
 
-    private void trianglePosition(int road) {
-        IntegerTriangle t = new IntegerTriangle(
-                Math.abs(road)
-                ,
-                road > 0
-                        ? direction
-                        : direction.getInvertedAngle()
-        );
-
-        position.setLocation(
-                position.getX() + t.calcHorizontalCatFromDegrees(),
-                position.getY() + t.calcVerticalCatFromDegrees()
-        );
-    }
-
     @Override
     public void setDirection(IntegerAngle newDirection) {
         this.direction = newDirection;
@@ -103,5 +113,22 @@ public class Cursor implements CursorInterface<IntegerAngle> {
 
     private void setPosition(Coordinate position) {
         this.position = position;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    private void setSize(int size) {
+        if (size < 1) throw new IllegalArgumentException("size can't be negative or 0");
+        this.size = size;
+    }
+
+    /**
+     * Pulisce il cursore impostandolo alla propria home
+     */
+    public void clear() {
+        this.size = 1;
+        setPosition(position.getHome());
     }
 }

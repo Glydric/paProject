@@ -7,13 +7,13 @@ import java.util.Objects;
  * Classe che definisce una qualsiasi coordinata
  */
 public class Coordinate extends Point {
-    int xMax;
-    int yMax;
+    int height;
+    int width;
 
-    public Coordinate(int x, int y, int xMax, int yMax) {
+    public Coordinate(int x, int y, int height, int width) {
         super(x, y);
-        setMaxX(xMax);
-        setMaxY(yMax);
+        setMaxX(height);
+        setMaxY(width);
     }
 
     @Override
@@ -27,19 +27,19 @@ public class Coordinate extends Point {
         return y;
     }
 
-    public int getMaxX() {
-        return xMax;
+    public int getHeight() {
+        return height;
     }
 
-    public int getMaxY() {
-        return yMax;
+    public int getWidth() {
+        return width;
     }
 
     /**
      * @return la "home" del sistema di riferimento, identificata come x/2,y/2
      */
     public Coordinate getHome() {
-        return new Coordinate(x / 2, y / 2, xMax, yMax);
+        return new Coordinate(x / 2, y / 2, height, width);
     }
 
     /**
@@ -54,8 +54,8 @@ public class Coordinate extends Point {
         if (y < 0) throw new IllegalArgumentException("Parametro y negativo");
 
         super.setLocation(
-                Math.min(x, xMax),
-                Math.min(y, yMax)
+                Math.min(x, height),
+                Math.min(y, width)
         );
     }
 
@@ -71,8 +71,8 @@ public class Coordinate extends Point {
         if (y < 0) throw new IllegalArgumentException("Parametro y negativo");
 
         super.setLocation(
-                Math.min(x, xMax),
-                Math.min(y, yMax)
+                Math.min(x, height),
+                Math.min(y, width)
         );
     }
 
@@ -92,7 +92,7 @@ public class Coordinate extends Point {
     private void setMaxY(int max) {
         if (max < 0)
             throw new IllegalArgumentException("Impossibile passare un parametro nullo");
-        this.yMax = max;
+        this.width = max;
     }
 
     /**
@@ -101,7 +101,7 @@ public class Coordinate extends Point {
     private void setMaxX(int max) {
         if (max < 0)
             throw new IllegalArgumentException("Impossibile passare un parametro nullo");
-        this.xMax = max;
+        this.height = max;
     }
 
     @Override
@@ -110,12 +110,12 @@ public class Coordinate extends Point {
         if (!(o instanceof Coordinate that)) return false;
         return getX() == that.getX()
                 && getY() == that.getY()
-                && getMaxX() == that.getMaxX()
-                && getMaxY() == that.getMaxY();
+                && getHeight() == that.getHeight()
+                && getWidth() == that.getWidth();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, xMax, yMax);
+        return Objects.hash(x, y, height, width);
     }
 }

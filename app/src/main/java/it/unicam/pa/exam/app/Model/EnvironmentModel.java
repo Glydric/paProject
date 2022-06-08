@@ -10,16 +10,20 @@ public class EnvironmentModel implements EnvironmentInterface<Cursor> {
     private Cursor cursor;
     private final ArrayList<ClosedArea> areas = new ArrayList<>();
 
+    /**
+     * Usa l'altezza massima e la larghezza massima da una coordinata passata
+     * @param c la coordinata da cui prendere i massimi
+     */
     public EnvironmentModel(Coordinate c) {
-        this(c.x, c.y);
+        this(c.height, c.width);
     }
 
-    public EnvironmentModel(int x, int y) {
-        setCursor(x, y);
+    public EnvironmentModel(int height, int width) {
+        setCursor(height, width);
     }
 
-    public EnvironmentModel(int x, int y, Color bgColor) {
-        this(x, y);
+    public EnvironmentModel(int height, int width, Color bgColor) {
+        this(height, width);
         backgroundColor = bgColor;
     }
 
@@ -40,17 +44,23 @@ public class EnvironmentModel implements EnvironmentInterface<Cursor> {
     /**
      * Crea un cursore sulla base dei parametri passati
      *
-     * @param x parametro che definisce l'altezza
-     * @param y parametro che definisce la larghezza
+     * @param height parametro che definisce l'altezza
+     * @param width parametro che definisce la larghezza
      */
-    private void setCursor(int x, int y) {
-        if (x < 0 || y < 0)
+    private void setCursor(int height, int width) {
+        if (height < 0 || width < 0)
             throw new IllegalArgumentException("x o y non possono essere negativi");
-        this.cursor = new Cursor(new Coordinate(0, 0, x, y));
+        this.cursor = new Cursor(new Coordinate(0, 0, height, width));
     }
 
     @Override
     public Cursor getCursor() {
         return cursor;
+    }
+
+    public void clear() {
+        backgroundColor = Color.white;
+        areas.clear();
+        cursor.clear();
     }
 }

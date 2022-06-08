@@ -10,8 +10,8 @@ public class LogoControllerTest {
     void constructorTest() {
         LogoController l = new LogoController(new EnvironmentModel(50, 60));
 
-        assertEquals(50, l.environment.getCursor().getPosition().getMaxX());
-        assertEquals(60, l.environment.getCursor().getPosition().getMaxY());
+        assertEquals(50, l.environment.getCursor().getPosition().getHeight());
+        assertEquals(60, l.environment.getCursor().getPosition().getWidth());
     }
 
     @Test
@@ -29,6 +29,8 @@ public class LogoControllerTest {
 
         l.execute("right 90");
         assertEquals(315, l.environment.getCursor().getDirection().getAngle());
+
+
         //todo add more test when other methods will work
     }
     @Test

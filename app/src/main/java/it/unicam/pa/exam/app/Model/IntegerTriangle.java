@@ -83,7 +83,6 @@ public class IntegerTriangle implements TriangleInterface<Integer> {
         return angle.getAngle();
     }
 
-
     /**
      * @return il cateto orizzontale calcolato usando ipotenusa ed angolo
      */
