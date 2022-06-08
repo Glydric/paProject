@@ -3,56 +3,56 @@
  */
 package it.unicam.pa.exam.app;
 
-import it.unicam.pa.exam.api.CoordinateInterface;
+import it.unicam.pa.exam.app.Model.Coordinate;
+import it.unicam.pa.exam.app.Model.SquareCoordinate;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CoordinateTest {
     @Test
     void testConstructor() {
-        CoordinateInterface c = new SquareCoordinate(10, 20, 300);
-        assertEquals(10, c.getHeight());
-        assertEquals(20, c.getWidth());
-        CoordinateInterface co = new Coordinate(10, 20, 300, 200);
-        assertEquals(10, c.getHeight());
-        assertEquals(20, c.getWidth());
+        Coordinate c = new SquareCoordinate(10, 20, 300);
+        assertEquals(10, c.getX());
+        assertEquals(20, c.getY());
+        Coordinate co = new Coordinate(10, 20, 300, 200);
+        assertEquals(10, c.getX());
+        assertEquals(20, c.getY());
     }
 
     @Test
     void testSet() {
-        CoordinateInterface c = new Coordinate(10, 20, 50, 60);
-        c.setNewPosition(30, 40);
+        Coordinate c = new Coordinate(10, 20, 50, 60);
+        c.setLocation(30, 40);
 
-        assertEquals(30, c.getHeight());
-        assertEquals(40, c.getWidth());
+        assertEquals(30, c.getX());
+        assertEquals(40, c.getY());
 
-        c.setNewPosition(100, 40);
-        assertEquals(c.getMaxHeight(),c.getHeight());
+        c.setLocation(100, 40);
+        assertEquals(c.getMaxX(),c.getX());
 
-        c.setNewPosition(10, 1280);
-        assertEquals(c.getMaxWidth(),c.getWidth());
+        c.setLocation(10, 1280);
+        assertEquals(c.getMaxY(),c.getY());
     }
 
     @Test
     void testGetArray() {
-        CoordinateInterface c = new Coordinate(2, 4, 10, 20);
+        Coordinate c = new Coordinate(2, 4, 10, 20);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 20; j++) {
-                c.setNewPosition(i, j);
-                assertEquals(c.getPositionAsArray()[0], c.getHeight());
-                assertEquals(i, c.getHeight());
+                c.setLocation(i, j);
+                assertEquals(c.getLocation().getX(), c.getX());
+                assertEquals(i, c.getX());
 
-                assertEquals(c.getPositionAsArray()[1], c.getWidth());
-                assertEquals(j, c.getWidth());
+                assertEquals(c.getLocation().getY(), c.getY());
+                assertEquals(j, c.getY());
             }
         }
     }
     @Test
     void testGetMax(){
-        CoordinateInterface c = new SquareCoordinate(0,0,250);
+        Coordinate c = new SquareCoordinate(0,0,250);
 
     }
 }

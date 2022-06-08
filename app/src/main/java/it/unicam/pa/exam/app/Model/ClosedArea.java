@@ -1,4 +1,4 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Model;
 
 import it.unicam.pa.exam.api.ClosedAreaInterface;
 import it.unicam.pa.exam.api.LineInterface;
@@ -21,6 +21,11 @@ public class ClosedArea implements ClosedAreaInterface {
         }
     }
 
+    /**
+     * Esegue una somma degli angoli e delle linee e li mette in relazione
+     * per determinare se l'area è chiusa
+     * @return true se l'area è chiusa, false altrimenti
+     */
     @Override
     public boolean isClosed() {
         return Stream.concat(

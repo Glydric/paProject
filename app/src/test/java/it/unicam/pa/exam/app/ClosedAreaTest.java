@@ -1,6 +1,9 @@
 package it.unicam.pa.exam.app;
 
 import it.unicam.pa.exam.api.ClosedAreaInterface;
+import it.unicam.pa.exam.app.Model.ClosedArea;
+import it.unicam.pa.exam.app.Model.Line;
+import it.unicam.pa.exam.app.Model.SquareCoordinate;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -10,17 +13,17 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ClosedAreaTest {
     @Test
     void AddLineTest(){
-        ClosedAreaInterface a = new ClosedArea();
+        ClosedArea a = new ClosedArea();
         a.addLine(
                 new Line(
                     new SquareCoordinate(10, 25, 50),
                     new SquareCoordinate(15, 20, 50),
                     new Color(255, 0, 0)
         ));
-        assertEquals(10,a.getLines().get(0).getBegin().getHeight());
-        assertEquals(25,a.getLines().get(0).getBegin().getWidth());
-        assertEquals(15,a.getLines().get(0).getEnd().getHeight());
-        assertEquals(20,a.getLines().get(0).getEnd().getWidth());
+        assertEquals(10,a.getLines().get(0).getBegin().getX());
+        assertEquals(25,a.getLines().get(0).getBegin().getY());
+        assertEquals(15,a.getLines().get(0).getEnd().getX());
+        assertEquals(20,a.getLines().get(0).getEnd().getY());
     }
     @Test
     void isClosedTest() {

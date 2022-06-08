@@ -1,4 +1,4 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Model;
 
 import it.unicam.pa.exam.api.AngleInterface;
 
@@ -9,16 +9,16 @@ public class IntegerAngle implements AngleInterface<Integer> {
     int angle;
     int max;
 
-    IntegerAngle(int angle, int max) {
+    public IntegerAngle(int angle, int max) {
         setMax(max);
         setAngle(angle);
     }
 
-    IntegerAngle(int angle) {
+    public IntegerAngle(int angle) {
         this(angle, 360);
     }
 
-    IntegerAngle() {
+    public IntegerAngle() {
         this(0);
     }
 
@@ -31,7 +31,6 @@ public class IntegerAngle implements AngleInterface<Integer> {
     /**
      * @return la direzione
      */
-    @Override
     public Integer getAngle() {
         return angle;
     }
@@ -43,18 +42,19 @@ public class IntegerAngle implements AngleInterface<Integer> {
      */
     @Override
     public void setAngle(Integer angle) {
-        if (angle < 0)
-            throw new IllegalArgumentException("L'angolo non può essere negativo");
-
-        this.angle = Math.abs(angle % max);
+        this.angle = angle < 0
+                ? max + angle % max
+                : angle % max;
 
         if (this.angle == 0 && angle != 0)
             this.angle = max;
     }
 
-    /**
-     * @return l'angolo in gradi
-     */
+    public void addAngle(Integer angle) {
+        setAngle(this.angle + angle);
+    }
+
+    @Override
     public double getDegrees() {
         return Math.PI * angle / 180;
     }

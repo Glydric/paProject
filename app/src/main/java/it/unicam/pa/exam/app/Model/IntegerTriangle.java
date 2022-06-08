@@ -1,6 +1,5 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Model;
 
-import it.unicam.pa.exam.api.AngleInterface;
 import it.unicam.pa.exam.api.TriangleInterface;
 
 /**
@@ -25,7 +24,7 @@ public class IntegerTriangle implements TriangleInterface<Integer> {
         setAngle(angle);
     }
 
-    public IntegerTriangle(int ipo, AngleInterface<Integer> angle) {
+    public IntegerTriangle(int ipo, IntegerAngle angle) {
         this(ipo, angle.getAngle());
     }
 

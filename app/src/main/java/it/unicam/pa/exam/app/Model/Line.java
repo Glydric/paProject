@@ -1,20 +1,19 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Model;
 
-import it.unicam.pa.exam.api.CoordinateInterface;
 import it.unicam.pa.exam.api.LineInterface;
 
 import java.awt.*;
 import java.util.Objects;
 
 public final class Line implements LineInterface {
-    private final CoordinateInterface begin;
-    private final CoordinateInterface end;
+    private final Coordinate begin;
+    private final Coordinate end;
     private final Color color;
 
 
-    public Line(CoordinateInterface begin, CoordinateInterface end, Color color) {
-        if (begin.getMaxHeight() != end.getMaxHeight()
-                || begin.getMaxWidth() != end.getMaxWidth())
+    public Line(Coordinate begin, Coordinate end, Color color) {
+        if (begin.getMaxX() != end.getMaxX()
+                || begin.getMaxY() != end.getMaxY())
             throw new IllegalArgumentException("Le due coordinate devono avere lo stesso sistema di riferimento");
         this.begin = begin;
         this.end = end;
@@ -22,12 +21,12 @@ public final class Line implements LineInterface {
     }
 
     @Override
-    public CoordinateInterface getBegin() {
+    public Coordinate getBegin() {
         return begin;
     }
 
     @Override
-    public CoordinateInterface getEnd() {
+    public Coordinate getEnd() {
         return end;
     }
 

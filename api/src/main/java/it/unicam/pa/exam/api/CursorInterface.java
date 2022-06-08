@@ -1,13 +1,15 @@
 package it.unicam.pa.exam.api;
 
-public interface CursorInterface {
+import java.awt.*;
+
+public interface CursorInterface<E extends AngleInterface<?>> {
     boolean plot = false;
 
-    AngleInterface<Integer> getDirection();
+    E getDirection();
 
-    CoordinateInterface getPosition();
+    Point getPosition();
 
-    void setDirection(AngleInterface<Integer> newDirection);
+    void setDirection(E newDirection);
 
     void moveCursor(int road);
 }

@@ -1,7 +1,7 @@
 package it.unicam.pa.exam.api;
 
-public interface EnvironmentInterface {
+public interface EnvironmentInterface<E extends CursorInterface<?>> {
     void write(int road);
 
-    CursorInterface getCursor();
+    E getCursor();
 }

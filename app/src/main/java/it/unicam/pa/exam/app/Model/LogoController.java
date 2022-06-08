@@ -1,22 +1,34 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Model;
 
-import it.unicam.pa.exam.api.AngleInterface;
 import it.unicam.pa.exam.api.LogoInterpreterInterface;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class LogoInterpreter implements LogoInterpreterInterface {
-    private final Environment environment;
+public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
+    /**
+     * environmentModel è accessibile da chiunque ed è possibile modificare i suoi valori
+     * in accordo al relativo contratto, NON è sostituibile in quanto final
+     */
+    public final EnvironmentModel environment;
 
-    LogoInterpreter(Environment environment) {
+    public LogoController(EnvironmentModel environment) {
         this.environment = environment;
     }
 
-    public Environment getEnvironment() {
-        return environment;
+    public LogoController(Coordinate c) {
+        this(c.x, c.y);
     }
 
+    public LogoController(int x, int y) {
+        this.environment = new EnvironmentModel(x, y);
+    }
+
+    /**
+     * Prende una stringa e la interpreta per eseguire determinati metodi
+     *
+     * @param rawCommand il comando logo da interpretare
+     */
     public void execute(String rawCommand) {
         String command = rawCommand.split(" ")[0].toUpperCase();
         int[] values = getIntArrayFromString(command.split(" ")[1]);
@@ -88,18 +100,18 @@ public class LogoInterpreter implements LogoInterpreterInterface {
     }
 
     @Override
-    public void left(AngleInterface<Integer> angle) {
-        environment.getCursor().setDirection(new IntegerAngle(
-                environment.getCursor().getDirection().getAngle()
-                        - angle.getAngle())
-        );
+    public void left(IntegerAngle angle) {
+        environment
+                .getCursor()
+                .getDirection()
+                .addAngle(angle.getAngle());
     }
 
     @Override
-    public void right(AngleInterface<Integer> angle) {
-        environment.getCursor().setDirection(new IntegerAngle(
-                environment.getCursor().getDirection().getAngle()
-                        + angle.getAngle())
+    public void right(IntegerAngle angle) {
+        left(new IntegerAngle(
+                        - angle.getAngle()
+                )
         );
     }
 

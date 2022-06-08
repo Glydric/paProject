@@ -2,8 +2,7 @@ package it.unicam.pa.exam.api;
 
 import java.util.List;
 
-public interface LogoInterpreterInterface {
-    EnvironmentInterface getEnvironment();
+public interface LogoInterpreterInterface <E extends AngleInterface<Integer>>{
     /**
      * execute interpreta un comando e lo esegue sul proprio environment
      * @param command il comando logo da interpretare
@@ -29,14 +28,14 @@ public interface LogoInterpreterInterface {
      *
      * @param angle la gradazione da applicare
      */
-    void left(AngleInterface<Integer> angle);
+    void left(E angle);
 
     /**
      * ruota il cursore in senso orario dei gradi descritti dal parametro (gli angoli sono indicati come interi nel range [0, 360])
      *
      * @param angle la gradazione da applicare
      */
-    void right(AngleInterface<Integer> angle);
+    void right(E angle);
 
     /**
      * cancella quanto disegnato

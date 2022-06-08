@@ -4,10 +4,9 @@ import java.awt.*;
 
 public interface LineInterface {
 
-    CoordinateInterface getBegin();
+    Point getBegin();
 
-    CoordinateInterface getEnd();
+    Point getEnd();
 
     Color getColor();
-
 }

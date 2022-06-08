@@ -1,20 +1,17 @@
-package it.unicam.pa.exam.app;
+package it.unicam.pa.exam.app.Model;
 
-import it.unicam.pa.exam.api.CoordinateInterface;
 import it.unicam.pa.exam.api.CursorInterface;
-import it.unicam.pa.exam.api.AngleInterface;
-import it.unicam.pa.exam.api.TriangleInterface;
 
-public class Cursor implements CursorInterface {
-    private CoordinateInterface position;
-    private AngleInterface<Integer> direction;
+public class Cursor implements CursorInterface<IntegerAngle> {
+    private Coordinate position;
+    private IntegerAngle direction;
 
     /**
      * Costruttore per un cursore che definisce la direzione iniziale
      *
      * @param position la posizione iniziale
      */
-    Cursor(CoordinateInterface position, IntegerAngle direction) {
+    Cursor(Coordinate position, IntegerAngle direction) {
         setPosition(position);
         setDirection(direction);
     }
@@ -24,7 +21,7 @@ public class Cursor implements CursorInterface {
      *
      * @param position la posizione iniziale
      */
-    Cursor(CoordinateInterface position, int direction) {
+    public Cursor(Coordinate position, int direction) {
         setPosition(position);
         setDirection(new IntegerAngle(direction));
     }
@@ -34,12 +31,12 @@ public class Cursor implements CursorInterface {
      *
      * @param position la posizione iniziale
      */
-    Cursor(CoordinateInterface position) {
+    public Cursor(Coordinate position) {
         this(position, new IntegerAngle());
     }
 
     @Override
-    public AngleInterface<Integer> getDirection() {
+    public IntegerAngle getDirection() {
         return direction;
     }
 
@@ -47,7 +44,7 @@ public class Cursor implements CursorInterface {
      * @return la posizione del cursore
      */
     @Override
-    public CoordinateInterface getPosition() {
+    public Coordinate getPosition() {
         return position;
     }
 
@@ -56,26 +53,26 @@ public class Cursor implements CursorInterface {
         if (direction.getAngle() % 90 != 0)
             trianglePosition(road);
         else
-            position.setNewPosition(
-                    position.getHeight() + (direction.getAngle() == 90
+            position.setLocation(
+                    position.getX() + (direction.getAngle() == 90
                             ? road
                             : 0),
-                    position.getWidth() + (direction.getAngle() == 0
+                    position.getY() + (direction.getAngle() == 0
                             ? road
                             : 0)
             );
     }
 
     private void trianglePosition(int road) {
-        TriangleInterface<Integer> t = new IntegerTriangle(road, direction);
-        position.setNewPosition(
-                position.getHeight() + t.calcHorizontalCatFromDegrees(),
-                position.getWidth() + t.calcVerticalCatFromDegrees()
+        IntegerTriangle t = new IntegerTriangle(road, direction);
+        position.setLocation(
+                position.getX() + t.calcHorizontalCatFromDegrees(),
+                position.getY() + t.calcVerticalCatFromDegrees()
         );
     }
 
     @Override
-    public void setDirection(AngleInterface<Integer> newDirection) {
+    public void setDirection(IntegerAngle newDirection) {
         this.direction = newDirection;
     }
 
@@ -83,7 +80,7 @@ public class Cursor implements CursorInterface {
         this.direction.setAngle(direction);
     }
 
-    private void setPosition(CoordinateInterface position) {
+    private void setPosition(Coordinate position) {
         this.position = position;
     }
 }
