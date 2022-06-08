@@ -2,6 +2,7 @@ package it.unicam.pa.exam.app.Model;
 
 import it.unicam.pa.exam.api.LogoInterpreterInterface;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,12 +31,16 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
      * @param rawCommand il comando logo da interpretare
      */
     public void execute(String rawCommand) {
-        String command = rawCommand.split(" ")[0].toUpperCase();
-        int[] values = getIntArrayFromString(command.split(" ")[1]);
+        ArrayList<String> commands = new ArrayList<>(
+                List.of(
+                        rawCommand.split(" ")
+                )
+        );
+        int[] values = getIntArrayFromList(commands);
         switch (values.length) {
-            case 0 -> noValueSwitcher(command);
-            case 1 -> singleIntegerSwitcher(command, values[0]);
-            default -> threeByteSwitcher(command,
+            case 0 -> noValueSwitcher(commands.get(0).toUpperCase());
+            case 1 -> singleIntegerSwitcher(commands.get(0).toUpperCase(), values[0]);
+            default -> threeByteSwitcher(commands.get(0).toUpperCase(),
                     (byte) values[0],
                     (byte) values[1],
                     (byte) values[2]);
@@ -45,7 +50,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
     private void singleIntegerSwitcher(String command, int value) {
         switch (command) {
             case "FORWARD", "FD" -> forward(value);
-            case "BACK", "BK" -> backward(value);
+            case "BACK", "BACKWARD", "BK" -> backward(value);
             case "SETPENSIZE" -> setPenSize(value);
             case "RIGHT", "RT" -> right(new IntegerAngle(value));
             case "LEFT", "LT" -> left(new IntegerAngle(value));
@@ -78,13 +83,15 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
         }
     }
 
-    private int[] getIntArrayFromString(String values) {
-        return Arrays.stream(values
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace("{", "")
-                        .replace("}", "")
-                        .split(","))
+    /**
+     * Skip first element that is the actual command
+     * @param values the list
+     * @return an array of int
+     */
+    private int[] getIntArrayFromList(List<String> values) {
+        return values
+                .stream()
+                .skip(1)
                 .mapToInt(Integer::parseInt)
                 .toArray();
     }
@@ -96,7 +103,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
 
     @Override
     public void backward(int dist) {
-
+        forward(-dist);
     }
 
     @Override
@@ -110,7 +117,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
     @Override
     public void right(IntegerAngle angle) {
         left(new IntegerAngle(
-                        - angle.getAngle()
+                        -angle.getAngle()
                 )
         );
     }

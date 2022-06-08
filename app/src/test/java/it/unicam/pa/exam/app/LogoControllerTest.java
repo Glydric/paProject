@@ -24,10 +24,10 @@ public class LogoControllerTest {
         l.execute("backward 10");
         assertEquals(10, l.environment.getCursor().getPosition().getY());
 
-        l.execute("right 45");
+        l.execute("left 45");
         assertEquals(45, l.environment.getCursor().getDirection().getAngle());
 
-        l.execute("left 90");
+        l.execute("right 90");
         assertEquals(315, l.environment.getCursor().getDirection().getAngle());
         //todo add more test when other methods will work
     }

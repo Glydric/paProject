@@ -54,6 +54,10 @@ public class IntegerAngle implements AngleInterface<Integer> {
         setAngle(this.angle + angle);
     }
 
+    public IntegerAngle getInvertedAngle() {
+        return new IntegerAngle(angle + max / 2, max);
+    }
+
     @Override
     public double getDegrees() {
         return Math.PI * angle / 180;

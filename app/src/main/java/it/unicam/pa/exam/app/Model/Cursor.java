@@ -48,23 +48,44 @@ public class Cursor implements CursorInterface<IntegerAngle> {
         return position;
     }
 
+    /**
+     * Consente di muovere il cursore in relazione alla direzione definita dall'angolo
+     *
+     * @param road la strada da percorrere
+     */
     @Override
     public void moveCursor(int road) {
         if (direction.getAngle() % 90 != 0)
             trianglePosition(road);
-        else
+        else {
+            int realRoad = direction.getAngle() == 270 || direction.getAngle() == 180
+                    ? -road
+                    : road;
+
             position.setLocation(
-                    position.getX() + (direction.getAngle() == 90
-                            ? road
-                            : 0),
-                    position.getY() + (direction.getAngle() == 0
-                            ? road
-                            : 0)
+                    position.getX() + (
+                            direction.getAngle() == 90 || direction.getAngle() == 270
+                                    ? realRoad
+                                    : 0
+                    ),
+                    position.getY() + (
+                            direction.getAngle() == 0 || direction.getAngle() == 180
+                                    ? realRoad
+                                    : 0
+                    )
             );
+        }
     }
 
     private void trianglePosition(int road) {
-        IntegerTriangle t = new IntegerTriangle(road, direction);
+        IntegerTriangle t = new IntegerTriangle(
+                Math.abs(road)
+                ,
+                road > 0
+                        ? direction
+                        : direction.getInvertedAngle()
+        );
+
         position.setLocation(
                 position.getX() + t.calcHorizontalCatFromDegrees(),
                 position.getY() + t.calcVerticalCatFromDegrees()
