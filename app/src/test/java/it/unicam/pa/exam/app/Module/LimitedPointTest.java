@@ -3,26 +3,24 @@
  */
 package it.unicam.pa.exam.app.Module;
 
-import it.unicam.pa.exam.app.Module.Coordinate;
-import it.unicam.pa.exam.app.Module.SquareCoordinate;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class CoordinateTest {
+class LimitedPointTest {
     @Test
     void testConstructor() {
-        Coordinate c = new SquareCoordinate(10, 20, 300);
+        LimitedPoint c = new SquareLimitedPoint(10, 20, 300);
         assertEquals(10, c.getX());
         assertEquals(20, c.getY());
-        Coordinate co = new Coordinate(10, 20, 300, 200);
+        LimitedPoint co = new LimitedPoint(10, 20, 300, 200);
         assertEquals(10, c.getX());
         assertEquals(20, c.getY());
     }
 
     @Test
     void testSet() {
-        Coordinate c = new Coordinate(10, 20, 50, 60);
+        LimitedPoint c = new LimitedPoint(10, 20, 50, 60);
         c.setLocation(30, 40);
 
         assertEquals(30, c.getX());
@@ -37,7 +35,7 @@ class CoordinateTest {
 
     @Test
     void testGetArray() {
-        Coordinate c = new Coordinate(2, 4, 10, 20);
+        LimitedPoint c = new LimitedPoint(2, 4, 10, 20);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 20; j++) {
@@ -52,7 +50,7 @@ class CoordinateTest {
     }
     @Test
     void testGetMax(){
-        Coordinate c = new SquareCoordinate(0,0,250);
+        LimitedPoint c = new SquareLimitedPoint(0,0,250);
 
     }
 }

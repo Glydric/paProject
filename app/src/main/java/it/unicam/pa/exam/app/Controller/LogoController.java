@@ -1,7 +1,7 @@
 package it.unicam.pa.exam.app.Controller;
 
 import it.unicam.pa.exam.api.LogoInterpreterInterface;
-import it.unicam.pa.exam.app.Module.Coordinate;
+import it.unicam.pa.exam.app.Module.LimitedPoint;
 import it.unicam.pa.exam.app.Module.EnvironmentModel;
 import it.unicam.pa.exam.app.Module.IntegerAngle;
 
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
     /**
-     * environmentModel è accessibile da chiunque ed è possibile modificare i suoi valori
+     * environmentModel è accessibile pubblicamente ed è possibile modificare i suoi valori
      * in accordo al relativo contratto, NON è sostituibile in quanto final
      */
     public final EnvironmentModel environment;
@@ -19,8 +19,8 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
         this.environment = environment;
     }
 
-    public LogoController(Coordinate c) {
-        this(c.x, c.y);//todo check if using x or height and y or width
+    public LogoController(LimitedPoint c) {
+        this(c.getHeight(), c.getWidth());
     }
 
     public LogoController(int height, int width) {
@@ -102,6 +102,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
 
     /**
      * l'equivalente comando LOGO "forward dist"
+     *
      * @param dist la distanza da percorrere
      */
     @Override
@@ -111,6 +112,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
 
     /**
      * l'equivalente comando LOGO "backward dist"
+     *
      * @param dist la distanza da percorrere
      */
     @Override
@@ -120,6 +122,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
 
     /**
      * l'equivalente comando LOGO "left angle"
+     *
      * @param angle l'angolo di rotazione da applicare
      */
     @Override
@@ -132,6 +135,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
 
     /**
      * l'equivalente comando LOGO "right angle"
+     *
      * @param angle l'angolo di rotazione da applicare
      */
     @Override
@@ -157,7 +161,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
      */
     @Override
     public void home() {
-
+        environment.getCursor().goToHome();
     }
 
     /**
@@ -166,7 +170,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
      */
     @Override
     public void penUp() {
-
+        environment.getCursor().plot = false;
     }
 
     /**
@@ -175,7 +179,7 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
      */
     @Override
     public void penDown() {
-
+        environment.getCursor().plot = true;
     }
 
     /**
@@ -184,53 +188,58 @@ public class LogoController implements LogoInterpreterInterface<IntegerAngle> {
      */
     @Override
     public void setPenColor(byte r, byte g, byte b) {
-
+        environment.getCursor().setColor(r, g, b);
     }
 
     /**
      * l'equivalente comando LOGO "setfillcolor byte byte byte"
      * modifica il colore di riempimento di un'area chiusa
+     *
      * @param r indica l'intensità del rosso
      * @param g indica l'intensità del verde
      * @param b indica l'intensità del blu
      */
     @Override
     public void setFillColor(byte r, byte g, byte b) {
-
+        environment.setActualAreaColor(r, g, b);
     }
 
     /**
      * l'equivalente comando LOGO "setscreencolor byte byte byte"
      * modifica il colore di sfondo
+     *
      * @param r indica l'intensità del rosso
      * @param g indica l'intensità del verde
      * @param b indica l'intensità del blu
      */
     @Override
     public void setScreenColor(byte r, byte g, byte b) {
-
+        environment.setColor(r, g, b);
     }
 
     /**
      * l'equivalente comando LOGO "setpensize size"
      * modifica la dimensione della penna
+     *
      * @param size indica la dimensione della penna
      */
     @Override
     public void setPenSize(int size) {
-
+        environment.getCursor().setSize(size);
     }
 
     /**
      * l'equivalente comando LOGO "repeat num [commands]"
      * modifica il colore di riempimento di un'area chiusa
+     *
      * @param num  indica il numero di esecuzioni
      * @param list una lista di comandi da eseguire in ordine
-     * La lista di comandi è una lista di stringhe
-     * da passare successivamente ad execute()
+     *             La lista di comandi è una lista di stringhe
+     *             da passare successivamente ad execute()
      */
     @Override
     public void repeat(int num, List<String> list) {
-
+        for (int i = 0; i < num; i++)
+            list.forEach(this::execute);
     }
 }

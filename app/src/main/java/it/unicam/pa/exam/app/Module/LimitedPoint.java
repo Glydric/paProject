@@ -1,30 +1,20 @@
 package it.unicam.pa.exam.app.Module;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.Objects;
 
 /**
  * Classe che definisce una qualsiasi coordinata
  */
-public class Coordinate extends Point {
-    int height;
-    int width;
+public class LimitedPoint extends Point {
+    private int height;
+    private int width;
 
-    public Coordinate(int x, int y, int height, int width) {
+    public LimitedPoint(int x, int y, int height, int width) {
         super(x, y);
-        setMaxX(height);
-        setMaxY(width);
-    }
-
-    @Override
-    public double getX() {
-        return x;
-    }
-
-    @Override
-
-    public double getY() {
-        return y;
+        setMaxHeight(height);
+        setMaxWidth(width);
     }
 
     public int getHeight() {
@@ -38,25 +28,19 @@ public class Coordinate extends Point {
     /**
      * @return la "home" del sistema di riferimento, identificata come x/2,y/2
      */
-    public Coordinate getHome() {
-        return new Coordinate(x / 2, y / 2, height, width);
+    public Point getHome() {
+        return new Point(height / 2, width / 2);
     }
 
     /**
-     * Imposta la coordinata del punto
+     * Imposta la coordinata del punto CONVERTENDO IL DOUBLE IN INTEGER
      *
      * @param x coordinata x
      * @param y coordinata y
      */
     @Override
     public void setLocation(double x, double y) {
-        if (x < 0) throw new IllegalArgumentException("Parametro x negativo");
-        if (y < 0) throw new IllegalArgumentException("Parametro y negativo");
-
-        super.setLocation(
-                Math.min(x, height),
-                Math.min(y, width)
-        );
+        setLocation((int) x, (int) y);
     }
 
     /**
@@ -83,31 +67,34 @@ public class Coordinate extends Point {
      */
     @Override
     public void setLocation(Point p) {
-        setLocation(p.x,p.y);
+        setLocation(p.x, p.y);
+    }
+    public void setLocation(Point2D p) {
+        setLocation(p.getX(), p.getY());
     }
 
     /**
-     * @param max massimo valore assumibile in larghezza
+     * @param maxWidth massimo valore assumibile in larghezza
      */
-    private void setMaxY(int max) {
-        if (max < 0)
+    private void setMaxWidth(int maxWidth) {
+        if (maxWidth < 0)
             throw new IllegalArgumentException("Impossibile passare un parametro nullo");
-        this.width = max;
+        this.width = maxWidth;
     }
 
     /**
-     * @param max massimo valore assumibile in altezza
+     * @param maxHeight massimo valore assumibile in altezza
      */
-    private void setMaxX(int max) {
-        if (max < 0)
+    private void setMaxHeight(int maxHeight) {
+        if (maxHeight < 0)
             throw new IllegalArgumentException("Impossibile passare un parametro nullo");
-        this.height = max;
+        this.height = maxHeight;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Coordinate that)) return false;
+        if (!(o instanceof LimitedPoint that)) return false;
         return getX() == that.getX()
                 && getY() == that.getY()
                 && getHeight() == that.getHeight()

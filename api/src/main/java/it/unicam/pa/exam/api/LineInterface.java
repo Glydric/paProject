@@ -3,10 +3,9 @@ package it.unicam.pa.exam.api;
 import java.awt.*;
 
 public interface LineInterface {
+    Point begin();
 
-    Point getBegin();
+    Point end();
 
-    Point getEnd();
-
-    Color getColor();
+    Color color();
 }

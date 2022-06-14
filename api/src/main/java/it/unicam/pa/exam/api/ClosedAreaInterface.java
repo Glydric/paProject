@@ -1,19 +1,19 @@
 package it.unicam.pa.exam.api;
 
-
+import java.awt.geom.Line2D;
 import java.util.List;
 
-public interface ClosedAreaInterface {
+public interface ClosedAreaInterface<E extends Line2D> {
     /**
      * Aggiunge una linea all'area
      * @param line linea da aggiungere
      */
-    void addLine(LineInterface line);
+    void addLine(E line);
 
     /**
      * @return una lista di linee
      */
-    List<LineInterface> getLines();
+    List<E> getLines();
 
     /**
      * conta tutti gli angoli (inizi e fine delle linee)

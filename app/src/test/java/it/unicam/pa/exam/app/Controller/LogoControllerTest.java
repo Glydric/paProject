@@ -1,6 +1,5 @@
 package it.unicam.pa.exam.app.Controller;
 
-import it.unicam.pa.exam.app.Controller.LogoController;
 import it.unicam.pa.exam.app.Module.EnvironmentModel;
 import it.unicam.pa.exam.app.Module.IntegerAngle;
 import it.unicam.pa.exam.app.Module.SquareEnvironmentModel;
@@ -18,7 +17,7 @@ public class LogoControllerTest {
     }
 
     @Test
-    void executeText(){
+    void executeText() {
         LogoController l = new LogoController(new SquareEnvironmentModel(50));
 
         l.execute("forward 20");
@@ -33,9 +32,19 @@ public class LogoControllerTest {
         l.execute("right 90");
         assertEquals(315, l.environment.getCursor().getDirection().getAngle());
 
+        // height >> 1 sta a indicare uno spostamento a sinistra dei bit e quindi equivale a / 2
+        l.execute("home");
+        assertEquals(l.environment.getCursor().getPosition().getHeight() >> 1, l.environment.getCursor().getPosition().getHome().getX());
+        assertEquals(l.environment.getCursor().getPosition().getWidth() >> 1, l.environment.getCursor().getPosition().getHome().getY());
 
         //todo add more test when other methods will work
+
+        l.execute("clear");
+        assertEquals(l.environment.getCursor().getPosition().getHome().getX(), l.environment.getCursor().getPosition().getX());
+        assertEquals(l.environment.getCursor().getPosition().getHome().getY(), l.environment.getCursor().getPosition().getY());
+
     }
+
     @Test
     void forwardTest() {
         LogoController l = new LogoController(new SquareEnvironmentModel(50));
