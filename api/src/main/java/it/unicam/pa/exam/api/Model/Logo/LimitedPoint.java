@@ -47,7 +47,7 @@ public class LimitedPoint extends Point {
      * @return la "home" del sistema di riferimento, identificata come x/2,y/2
      */
     public Point getHome() {
-        return new Point(width/ 2, height / 2);
+        return new Point(width / 2, height / 2);
     }
 
     /**
@@ -137,5 +137,10 @@ public class LimitedPoint extends Point {
     @Override
     public int hashCode() {
         return Objects.hash(x, y, height, width);
+    }
+
+    @Override
+    public String toString() {
+        return "<"+ width + "> <" + height + ">";
     }
 }

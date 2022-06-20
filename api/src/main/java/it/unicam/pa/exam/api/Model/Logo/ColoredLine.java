@@ -19,8 +19,9 @@ public class ColoredLine extends Line2D {
 
     /**
      * Definisce il costruttore per una linea colorata con colore di default "nero"
+     *
      * @param begin il punto di inizio
-     * @param end il punto di fine
+     * @param end   il punto di fine
      */
     public ColoredLine(Point begin, Point end) {
         this.begin = begin;
@@ -90,9 +91,12 @@ public class ColoredLine extends Line2D {
 
     @Override
     public String toString() {
-        return "ColoredLine[" +
-                "begin=" + begin + ", " +
-                "end=" + end + ", " +
-                "color=" + color + ']';
+        return "LINE" +
+                " [" + begin.x + ", " + begin.y + "]" +
+                " [" + end.x + ", " + end.y + "]" +
+                " ["
+                + color.getRed() + ','
+                + color.getGreen() + ','
+                + color.getBlue() + "]\n";
     }
 }

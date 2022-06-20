@@ -7,7 +7,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
     private final LimitedPoint position;
     private final IntegerAngle direction;
     private int size;
-    public boolean plot = true;
+    private boolean plot = true;
 
     /**
      * Costruttore per un cursore che definisce la direzione iniziale
@@ -23,10 +23,11 @@ public class Cursor implements CursorInterface<IntegerAngle> {
     /**
      * Costruttore per un cursore che definisce la direzione iniziale
      *
-     * @param position la posizione iniziale
+     * @param width la larghezza massima
+     * @param height l'altezza massima
      */
-    public Cursor(LimitedPoint position, int direction, int size) {
-        this(position, new IntegerAngle(direction), size);
+    public Cursor(int width, int height) {
+        this(new LimitedPoint(width, height));
     }
 
     /**
@@ -57,12 +58,12 @@ public class Cursor implements CursorInterface<IntegerAngle> {
 
         position.incrementLocation(
                 (int) (direction.getActualQuadrant() == 3 || direction.getActualQuadrant() == 2
-                        ? -t.calcSaveHorizontal()
-                        : t.calcSaveHorizontal())
+                        ? -t.calcHorizontal()
+                        : t.calcHorizontal())
                 ,
                 (int) (direction.getActualQuadrant() == 4 || direction.getActualQuadrant() == 3
-                        ? -t.calcSaveVertical()
-                        : t.calcSaveVertical())
+                        ? -t.calcVertical()
+                        : t.calcVertical())
         );
     }
 
@@ -111,7 +112,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
 
     @Override
     public void setDirection(IntegerAngle newDirection) {
-        direction.setAngle(newDirection.getAngle());
+        setDirection(newDirection.getAngle());
     }
 
     public void setDirection(int direction) {
@@ -126,6 +127,12 @@ public class Cursor implements CursorInterface<IntegerAngle> {
         return size;
     }
 
+    /**
+     * Imposta la dimensione della penna
+     *
+     * @param size la nuova dimensione
+     */
+    @Override
     public void setSize(int size) {
         if (size < 1) throw new IllegalArgumentException("size can't be negative or 0");
         this.size = size;
@@ -139,9 +146,17 @@ public class Cursor implements CursorInterface<IntegerAngle> {
         goToHome();
     }
 
-    /**
-     * Imposta il cursore nella posizione della propria home
-     */
+    @Override
+    public void setPlot(boolean p) {
+        this.plot = p;
+    }
+
+    @Override
+    public Boolean getPlot() {
+        return plot;
+    }
+
+    @Override
     public void goToHome() {
         setPosition(position.getHome());
     }
@@ -153,6 +168,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
      * @param g il colore verde rappresentato come byte
      * @param b il colore blu rappresentato come byte
      */
+    @Override
     public void setColor(byte r, byte g, byte b) {
         color = new Color(r, g, b);
     }

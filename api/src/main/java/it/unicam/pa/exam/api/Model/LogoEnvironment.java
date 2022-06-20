@@ -5,16 +5,16 @@ import it.unicam.pa.exam.api.Model.Logo.Cursor;
 
 import java.awt.*;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class LogoEnvironment implements Environment<Cursor> {
     private Color backgroundColor = Color.white;
     private Cursor cursor;
     private final Stack<ClosedArea> areas = new Stack<>();
-//    private final List<ClosedArea> areas = new ArrayList<>();
 
     public LogoEnvironment(int height, int width) {
         setCursor(height, width);
-        addAreaIfNeed();
+        areas.add(new ColoredClosedArea());
     }
 
     public LogoEnvironment(int height, int width, Color bgColor) {
@@ -22,24 +22,35 @@ public class LogoEnvironment implements Environment<Cursor> {
         backgroundColor = bgColor;
     }
 
-
     private void addAreaIfNeed() {
-        if (areas
-                .stream()
-                .noneMatch(ClosedAreaInterface::isClosed))
+        if (areas.peek().isClosed())
             areas.add(new ColoredClosedArea());
     }
 
+    /**
+     * Modifica il colore dell'area che stiamo disegnando attualmente
+     *
+     * @param color il colore
+     */
+    @Override
     public void setActualAreaColor(Color color) {
         if (!(areas.get(0) instanceof ColoredClosedArea))
             throw new UnsupportedOperationException("L'area attuale non supporta i colori");
-        ((ColoredClosedArea) areas.get(areas.size() - 1)).setColor(color);
+        ((ColoredClosedArea) areas.peek()).setColor(color);
     }
 
+    /**
+     * Modifica il colore dell'area che stiamo disegnando attualmente
+     *
+     * @param r il colore rosso
+     * @param g il colore verde
+     * @param b il colore blu
+     */
+    @Override
     public void setActualAreaColor(byte r, byte g, byte b) {
         if (!(areas.get(0) instanceof ColoredClosedArea))
             throw new UnsupportedOperationException("L'area attuale non supporta i colori");
-        ((ColoredClosedArea) areas.get(areas.size() - 1)).setColor(r, g, b);
+        ((ColoredClosedArea) areas.peek()).setColor(r, g, b);
     }
 
     /**
@@ -51,7 +62,17 @@ public class LogoEnvironment implements Environment<Cursor> {
     private void setCursor(int height, int width) {
         if (height < 0 || width < 0)
             throw new IllegalArgumentException("x o y non possono essere negativi");
-        this.cursor = new Cursor(new LimitedPoint(0, 0, width, height));
+        this.cursor = new Cursor(new LimitedPoint(width, height));
+    }
+
+    @Override
+    public int getHeight() {
+        return cursor.getPosition().getHeight();
+    }
+
+    @Override
+    public int getWidth() {
+        return cursor.getPosition().getWidth();
     }
 
     @Override
@@ -60,8 +81,8 @@ public class LogoEnvironment implements Environment<Cursor> {
 
         cursor.moveCursor(road);
 
-        if (cursor.plot)
-            addLine(before, cursor.getPosition());
+        if (cursor.getPlot())
+            addLine(before, (Point) cursor.getPosition().clone());
     }
 
     private void addLine(Point p1, Point p2) {
@@ -93,10 +114,13 @@ public class LogoEnvironment implements Environment<Cursor> {
 
     @Override
     public String toString() {
-        return "SIZE " +
-                "backgroundColor=" + backgroundColor +
-                ", cursor=" + cursor +
-                ", areas=" + areas +
-                '}';
+        return "SIZE " + cursor.getPosition() + " ["
+                + backgroundColor.getRed() + ','
+                + backgroundColor.getGreen() + ','
+                + backgroundColor.getBlue() + "]\n"
+                + areas
+                    .stream()
+                    .map(ClosedArea::toString)
+                    .collect(Collectors.joining());
     }
 }

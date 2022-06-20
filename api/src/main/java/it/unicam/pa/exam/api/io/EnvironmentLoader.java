@@ -1,7 +1,6 @@
 package it.unicam.pa.exam.api.io;
 
 import it.unicam.pa.exam.api.Model.Environment;
-import it.unicam.pa.exam.api.Model.Logo.CursorInterface;
 
 import java.io.File;
 import java.io.IOException;

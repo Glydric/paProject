@@ -1,30 +1,21 @@
 package it.unicam.pa.exam.api;
 
+import it.unicam.pa.exam.api.Model.Environment;
 import it.unicam.pa.exam.api.Model.Logo.LogoInterpreterInterface;
 import it.unicam.pa.exam.api.Model.Logo.IntegerAngle;
-import it.unicam.pa.exam.api.Model.Logo.LimitedPoint;
-import it.unicam.pa.exam.api.Model.LogoEnvironment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogoInterpreter implements LogoInterpreterInterface<IntegerAngle> {
+public class LogoInterpreter<E extends Environment<?>> implements LogoInterpreterInterface<IntegerAngle> {
     /**
      * environmentModel è accessibile pubblicamente ed è possibile modificare i suoi valori
      * in accordo al relativo contratto, NON è sostituibile in quanto final
      */
-    public final LogoEnvironment environment;
+    public final E environment;
 
-    public LogoInterpreter(LogoEnvironment environment) {
+    public LogoInterpreter(E environment) {
         this.environment = environment;
-    }
-
-    public LogoInterpreter(LimitedPoint c) {
-        this(c.getHeight(), c.getWidth());
-    }
-
-    public LogoInterpreter(int height, int width) {
-        this.environment = new LogoEnvironment(height, width);
     }
 
     /**
@@ -107,7 +98,7 @@ public class LogoInterpreter implements LogoInterpreterInterface<IntegerAngle> {
      */
     @Override
     public void forward(int dist) {
-        environment.getCursor().moveCursor(dist);
+        environment.write(dist);
     }
 
     /**
@@ -170,7 +161,7 @@ public class LogoInterpreter implements LogoInterpreterInterface<IntegerAngle> {
      */
     @Override
     public void penUp() {
-        environment.getCursor().plot = false;
+        environment.getCursor().setPlot(false);
     }
 
     /**
@@ -179,7 +170,7 @@ public class LogoInterpreter implements LogoInterpreterInterface<IntegerAngle> {
      */
     @Override
     public void penDown() {
-        environment.getCursor().plot = true;
+        environment.getCursor().setPlot(true);
     }
 
     /**

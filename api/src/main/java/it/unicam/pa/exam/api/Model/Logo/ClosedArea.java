@@ -2,6 +2,7 @@ package it.unicam.pa.exam.api.Model.Logo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
@@ -35,5 +36,17 @@ public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
                 .distinct()
                 .count()
                 == coloredLines.size();
+    }
+
+    @Override
+    public String toString() {
+        return coloredLines.isEmpty()
+                ? ""
+                : "<SHAPE>\n" +
+                coloredLines
+                        .stream()
+                        .map(ColoredLine::toString)
+                        .collect(Collectors.joining()) +
+                "<SHAPE>\n";
     }
 }

@@ -48,6 +48,7 @@ public class IntegerAngle implements AngleInterface<Integer> {
             this.angle = max;
     }
 
+    @Override
     public void addAngle(Integer angle) {
         setAngle(this.angle + angle);
     }

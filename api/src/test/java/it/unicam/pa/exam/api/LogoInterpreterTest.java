@@ -10,15 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LogoInterpreterTest {
     @Test
     void constructorTest() {
-        LogoInterpreter l = new LogoInterpreter(new LogoEnvironment(50, 60));
+        LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new LogoEnvironment(50, 60));
 
-        assertEquals(50, l.environment.getCursor().getPosition().getHeight());
-        assertEquals(60, l.environment.getCursor().getPosition().getWidth());
+        assertEquals(50, l.environment.getHeight());
+        assertEquals(60, l.environment.getWidth());
     }
 
     @Test
     void executeText() {
-        LogoInterpreter l = new LogoInterpreter(new SquareLogoEnvironment(50));
+        LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new SquareLogoEnvironment(50));
 
         l.execute("forward 20");
         assertEquals(20, l.environment.getCursor().getPosition().getY());
@@ -47,7 +47,7 @@ public class LogoInterpreterTest {
 
     @Test
     void forwardTest() {
-        LogoInterpreter l = new LogoInterpreter(new SquareLogoEnvironment(50));
+        LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new SquareLogoEnvironment(50));
         l.forward(20);
         assertEquals(20, l.environment.getCursor().getPosition().getY());
 
@@ -65,7 +65,7 @@ public class LogoInterpreterTest {
 
     @Test
     void leftTest() {
-        LogoInterpreter l = new LogoInterpreter(new SquareLogoEnvironment(50));
+        LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new SquareLogoEnvironment(50));
 
         l.left(new IntegerAngle(30));
         assertEquals(30, l.environment.getCursor().getDirection().getAngle());
@@ -75,7 +75,7 @@ public class LogoInterpreterTest {
 
     @Test
     void rightTest() {
-        LogoInterpreter l = new LogoInterpreter(new SquareLogoEnvironment(50));
+        LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new SquareLogoEnvironment(50));
 
         assertEquals(0, l.environment.getCursor().getDirection().getAngle());
 

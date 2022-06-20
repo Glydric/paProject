@@ -2,7 +2,17 @@ package it.unicam.pa.exam.api.Model.Logo;
 
 import java.awt.*;
 
-public interface CursorInterface<E extends AngleInterface<?>> {
+public interface CursorInterface<E extends AngleInterface<? extends Number>> {
+
+    void setSize(int size);
+
+    void setPlot(boolean p);
+    Boolean getPlot();
+
+    /**
+     * Imposta il cursore nella posizione della propria home
+     */
+    void goToHome();
 
     E getDirection();
 
@@ -11,4 +21,13 @@ public interface CursorInterface<E extends AngleInterface<?>> {
     void setDirection(E newDirection);
 
     void moveCursor(int road);
+
+    /**
+     * Prende in input i parametri del colore e imposta il colore della linea
+     *
+     * @param r il colore rosso rappresentato come byte
+     * @param g il colore verde rappresentato come byte
+     * @param b il colore blu rappresentato come byte
+     */
+    void setColor(byte r, byte g, byte b);
 }
