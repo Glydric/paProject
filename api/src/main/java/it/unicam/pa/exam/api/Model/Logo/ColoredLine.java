@@ -11,10 +11,20 @@ public class ColoredLine extends Line2D {
     private final Point end;
     private final Color color;
 
+    private final int size;
+
+    public ColoredLine(Point begin, Point end, int size) {
+        this.begin = begin;
+        this.end = end;
+        this.color = Color.black;
+        this.size = size;
+    }
+
     public ColoredLine(Point begin, Point end, Color color) {
         this.begin = begin;
         this.end = end;
         this.color = color;
+        this.size = 1;
     }
 
     /**
@@ -27,6 +37,7 @@ public class ColoredLine extends Line2D {
         this.begin = begin;
         this.end = end;
         this.color = Color.black;
+        this.size = 1;
     }
 
     public Color getColor() {
@@ -97,6 +108,7 @@ public class ColoredLine extends Line2D {
                 " ["
                 + color.getRed() + ','
                 + color.getGreen() + ','
-                + color.getBlue() + "]\n";
+                + color.getBlue() + "] "
+                + size + "\n";
     }
 }

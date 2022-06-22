@@ -49,18 +49,14 @@ public class LogoInterpreterTest {
     void forwardTest() {
         LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new SquareLogoEnvironment(50));
         l.forward(20);
-        assertEquals(20, l.environment.getCursor().getPosition().getY());
+        assertEquals(45, l.environment.getCursor().getPosition().getX());
 
         l.forward(20);
-        assertEquals(40, l.environment.getCursor().getPosition().getY());
-
-        l.forward(40);
-        assertEquals(50, l.environment.getCursor().getPosition().getY());
-
+        assertEquals(50, l.environment.getCursor().getPosition().getX());
 
         l.left(new IntegerAngle(90));
         l.forward(40);
-        assertEquals(40, l.environment.getCursor().getPosition().getX());
+        assertEquals(50, l.environment.getCursor().getPosition().getY());
     }
 
     @Test

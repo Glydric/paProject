@@ -7,7 +7,7 @@ import it.unicam.pa.exam.api.Model.Logo.IntegerAngle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogoInterpreter<E extends Environment<?>> implements LogoInterpreterInterface<IntegerAngle> {
+public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpreterInterface<IntegerAngle> {
     /**
      * environmentModel è accessibile pubblicamente ed è possibile modificare i suoi valori
      * in accordo al relativo contratto, NON è sostituibile in quanto final
@@ -23,7 +23,7 @@ public class LogoInterpreter<E extends Environment<?>> implements LogoInterprete
      *
      * @param rawCommand il comando logo da interpretare
      */
-    public void execute(String rawCommand) {
+    public void execute(String rawCommand) throws IllegalArgumentException{
         ArrayList<String> commands = new ArrayList<>(
                 List.of(
                         rawCommand.split(" ")
@@ -40,26 +40,28 @@ public class LogoInterpreter<E extends Environment<?>> implements LogoInterprete
         }
     }
 
-    private void noValueSwitcher(String command) {
+    private void noValueSwitcher(String command) throws IllegalArgumentException{
         switch (command) {
-            case "CLEARSCREEN", "CS" -> clear();
+            case "CLEARSCREEN", "CLEAR", "CS" -> clear();
             case "HOME" -> home();
             case "PENUP", "PU" -> penUp();
             case "PENDOWN", "PD" -> penDown();
+            default -> throw new IllegalArgumentException("Comando non trovato");
         }
     }
 
-    private void singleIntegerSwitcher(String command, int value) {
+    private void singleIntegerSwitcher(String command, int value) throws IllegalArgumentException{
         switch (command) {
             case "FORWARD", "FD" -> forward(value);
             case "BACK", "BACKWARD", "BK" -> backward(value);
             case "SETPENSIZE" -> setPenSize(value);
             case "RIGHT", "RT" -> right(new IntegerAngle(value));
             case "LEFT", "LT" -> left(new IntegerAngle(value));
+            default -> throw new IllegalArgumentException("Comando non trovato");
         }
     }
 
-    private void threeByteSwitcher(String command, byte value, byte value1, byte value2) {
+    private void threeByteSwitcher(String command, byte value, byte value1, byte value2) throws IllegalArgumentException {
         switch (command) {
             case "SETPENCOLOR", "SETPC" -> setPenColor(
                     value,
@@ -73,6 +75,7 @@ public class LogoInterpreter<E extends Environment<?>> implements LogoInterprete
                     value,
                     value1,
                     value2);
+            default -> throw new IllegalArgumentException("Comando non trovato");
         }
     }
 

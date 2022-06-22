@@ -8,6 +8,9 @@ import java.util.stream.Stream;
 public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
     private final List<ColoredLine> coloredLines = new ArrayList<>();
 
+    /**
+     * @return tutte le linee di questa area
+     */
     public List<ColoredLine> getLines() {
         return coloredLines;
     }

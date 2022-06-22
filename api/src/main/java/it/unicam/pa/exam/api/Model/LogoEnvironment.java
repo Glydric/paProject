@@ -4,10 +4,12 @@ import it.unicam.pa.exam.api.Model.Logo.*;
 import it.unicam.pa.exam.api.Model.Logo.Cursor;
 
 import java.awt.*;
+import java.util.Collection;
+import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class LogoEnvironment implements Environment<Cursor> {
+public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
     private Color backgroundColor = Color.white;
     private Cursor cursor;
     private final Stack<ClosedArea> areas = new Stack<>();
@@ -86,7 +88,7 @@ public class LogoEnvironment implements Environment<Cursor> {
     }
 
     private void addLine(Point p1, Point p2) {
-        areas.peek().addLine(new ColoredLine(p1, p2));
+        areas.peek().addLine(new ColoredLine(p1, p2, cursor.getSize()));
 
         addAreaIfNeed();
     }
@@ -108,6 +110,19 @@ public class LogoEnvironment implements Environment<Cursor> {
         cursor.clear();
     }
 
+    @Override
+    public List<ColoredLine> getLines() {
+        return areas.stream()
+                .map(ClosedArea::getLines)
+                .flatMap(Collection::stream)
+                .toList();
+    }
+
+    @Override
+    public List<ClosedArea> getClosedAreas() {
+        return areas.stream().toList();
+    }
+
     public Color getBackgroundColor() {
         return backgroundColor;
     }
@@ -119,8 +134,8 @@ public class LogoEnvironment implements Environment<Cursor> {
                 + backgroundColor.getGreen() + ','
                 + backgroundColor.getBlue() + "]\n"
                 + areas
-                    .stream()
-                    .map(ClosedArea::toString)
-                    .collect(Collectors.joining());
+                .stream()
+                .map(ClosedArea::toString)
+                .collect(Collectors.joining());
     }
 }

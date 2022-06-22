@@ -1,20 +1,34 @@
 package it.unicam.pa.exam.api;
 
 import it.unicam.pa.exam.api.Model.Environment;
-import it.unicam.pa.exam.api.Model.Logo.AngleInterface;
-import it.unicam.pa.exam.api.Model.Logo.CursorInterface;
+import it.unicam.pa.exam.api.Model.Logo.*;
+import it.unicam.pa.exam.api.Model.LogoEnvironment;
 import it.unicam.pa.exam.api.io.EnvironmentLoader;
 import it.unicam.pa.exam.api.io.EnvironmentWriter;
+import it.unicam.pa.exam.api.io.LogoEnvironmentLoader;
+import it.unicam.pa.exam.api.io.LogoEnvironmentWriter;
 
+import javax.sound.sampled.Line;
+import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
-public class Controller<E extends Environment<C>, C extends CursorInterface<A>, A extends AngleInterface<? extends Number>> {
+public class Controller<E extends Environment<C, ColoredLine>, C extends CursorInterface<A>, A extends AngleInterface<? extends Number>> {
     private final EnvironmentWriter<E> environmentWriter;
     private final EnvironmentLoader<E> environmentLoader;
-    LogoInterpreter<E> interpreter;
+    private LogoInterpreter<E> interpreter;
 
+    public static Controller<LogoEnvironment, Cursor, IntegerAngle> getLogoController(int height, int width){
+        return new Controller<>(
+                new LogoEnvironmentLoader(),
+                new LogoEnvironmentWriter(),
+                new LogoInterpreter<>(
+                        new LogoEnvironment(height,width)
+                )
+        );
+    }
     public Controller(EnvironmentLoader<E> loader, EnvironmentWriter<E> writer, LogoInterpreter<E> interpreter) {
         environmentLoader = loader;
         environmentWriter = writer;
@@ -61,5 +75,17 @@ public class Controller<E extends Environment<C>, C extends CursorInterface<A>, 
 
     public void execute(String command) {
         interpreter.execute(command);
+    }
+
+    public List<ColoredLine> getAllLines(){
+        return interpreter.environment.getLines();
+    }
+
+    public List<ClosedArea> getAllAreas(){
+        return interpreter.environment.getClosedAreas();
+    }
+
+    public E getEnvironment() {
+        return interpreter.environment;
     }
 }

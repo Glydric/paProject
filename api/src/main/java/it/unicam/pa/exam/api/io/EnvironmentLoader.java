@@ -1,14 +1,16 @@
 package it.unicam.pa.exam.api.io;
 
 import it.unicam.pa.exam.api.Model.Environment;
+import it.unicam.pa.exam.api.Model.Logo.CursorInterface;
 
+import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 @FunctionalInterface
-public interface EnvironmentLoader<E extends Environment<?>> {
+public interface EnvironmentLoader<E extends Environment<? extends CursorInterface<?>, ? extends Line2D>> {
 
     /**
      * Trasforma una stringa in un environment
@@ -20,7 +22,6 @@ public interface EnvironmentLoader<E extends Environment<?>> {
     E parse(String content) throws IOException;
 
     /**
-     *
      * @param path il file da cui estrarre l'environment
      * @return l'environment estratto
      * @throws IOException se vi è un'errore nell'apertura del file o nel parsing
@@ -30,7 +31,6 @@ public interface EnvironmentLoader<E extends Environment<?>> {
     }
 
     /**
-     *
      * @param file il file da cui estrarre il path e successivamente l'environment
      * @return l'environment estratto
      * @throws IOException se vi è un'errore nell'apertura del file o nel parsing
