@@ -21,10 +21,10 @@ public class LogoInterpreterTest {
         LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new SquareLogoEnvironment(50));
 
         l.execute("forward 20");
-        assertEquals(20, l.environment.getCursor().getPosition().getY());
+        assertEquals(45, l.environment.getCursor().getPosition().getX());
 
         l.execute("backward 10");
-        assertEquals(10, l.environment.getCursor().getPosition().getY());
+        assertEquals(35, l.environment.getCursor().getPosition().getX());
 
         l.execute("left 45");
         assertEquals(45, l.environment.getCursor().getDirection().getAngle());

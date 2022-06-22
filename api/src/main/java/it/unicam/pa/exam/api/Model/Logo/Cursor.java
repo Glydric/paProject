@@ -86,9 +86,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
      * @param road la strada da percorrere
      */
     @Override
-    public void moveCursor(int road) throws IllegalArgumentException {
-        if (road < 0) throw new IllegalArgumentException("La strada deve essere un valore positivo");
-
+    public void moveCursor(int road) {
         if (direction.getAngle() % 90 != 0)
             trianglePosition(road);
         else {
