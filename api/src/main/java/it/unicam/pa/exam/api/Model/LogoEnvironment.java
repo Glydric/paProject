@@ -88,7 +88,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
     }
 
     private void addLine(Point p1, Point p2) {
-        areas.peek().addLine(new ColoredLine(p1, p2, cursor.getSize()));
+        areas.peek().addLine(new ColoredLine(p1, p2, cursor.color, cursor.getSize()));
 
         addAreaIfNeed();
     }

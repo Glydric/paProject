@@ -13,10 +13,10 @@ public class ColoredLine extends Line2D {
 
     private final int size;
 
-    public ColoredLine(Point begin, Point end, int size) {
+    public ColoredLine(Point begin, Point end, Color color, int size) {
         this.begin = begin;
         this.end = end;
-        this.color = Color.black;
+        this.color = color;
         this.size = size;
     }
 

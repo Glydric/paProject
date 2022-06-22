@@ -1,6 +1,5 @@
 package it.unicam.pa.exam.app;
 
-import com.sun.javafx.sg.prism.NGRectangle;
 import it.unicam.pa.exam.api.Controller;
 import it.unicam.pa.exam.api.Model.Logo.*;
 import it.unicam.pa.exam.api.Model.Logo.Cursor;
@@ -52,17 +51,14 @@ public class AppController {
     private Button loadButton;
 
     /**
-     * Il metodo inizializza l'area di disegno
+     * inizializza l'area di disegno con il colore di sfondo selezionato
      */
     public void initialize() {
         GraphicsContext graphics = drawArea.getGraphicsContext2D();
 
-        /*drawArea.getElements().add(
-                new MoveTo(
-                        controller.getEnvironment().getCursor().getPosition().getX(),
-                        controller.getEnvironment().getCursor().getPosition().getY()
-                )
-        );*/
+        graphics.setFill(getPaint(controller.getEnvironment().getBackgroundColor()));
+        graphics.fillRect(0, 0, WIDTH, HEIGHT);
+
     }
 
     /**
@@ -137,12 +133,30 @@ public class AppController {
         refreshView();
     }
 
-
-    private void setDrawAreaFill(ColoredClosedArea a) {
+    /**
+     * Disegna un'area se è chiusa
+     * Se l'area ha un colore lo applica
+     * In fine disegna anche le linee che la compongono
+     *
+     * @param area l'area di riferimento
+     */
+    private void drawArea(ClosedArea area) {
         GraphicsContext graphics = drawArea.getGraphicsContext2D();
 
-        graphics.setFill(getPaint(a.getColor()));
-        graphics.fillPolygon(a.getAllX(), a.getAllY(), a.getPoints().size());
+        if (area.isClosed()) {
+            if (area instanceof ColoredClosedArea)
+                graphics.setFill(getPaint(((ColoredClosedArea) area).getColor()));
+            graphics.fillPolygon(area.getAllX(), area.getAllY(), area.getPoints().size());
+        }
+
+        area.getLines().forEach(this::drawLine);
+    }
+
+    private void drawLine(ColoredLine l) {
+        GraphicsContext graphics = drawArea.getGraphicsContext2D();
+
+        graphics.setStroke(getPaint(l.getColor()));
+        graphics.strokeLine(l.getX1(), l.getY1(), l.getX2(), l.getY2());
     }
 
     private Paint getPaint(Color color) {
@@ -154,24 +168,14 @@ public class AppController {
     }
 
     /**
-     * Il metodo che aggiorna la vista
+     * Il metodo che aggiorna tutta la vista
      */
     private void refreshView() {
         GraphicsContext graphics = drawArea.getGraphicsContext2D();
 
-        controller.getAllAreas()
-                .forEach(a -> {
-                            if (a instanceof ColoredClosedArea && a.isClosed())
-                                setDrawAreaFill(((ColoredClosedArea) a));
-                            a.getLines().forEach((l) -> {
-                                        graphics.setStroke(getPaint(l.getColor()));
-                                        graphics.setFill(getPaint(l.getColor()));
-                                        graphics.strokeLine(l.getX1(), l.getY1(), l.getX2(), l.getY2());
-                                    }
-                            );
-                        }
-                );
-
+        initialize();
+        controller.getAllAreas().forEach(this::drawArea);
+        //todo add pen size
     }
 
     public void onHomeButton(ActionEvent actionEvent) {
