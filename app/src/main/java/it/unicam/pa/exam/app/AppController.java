@@ -167,6 +167,7 @@ public class AppController {
         );
     }
 
+
     /**
      * Il metodo che aggiorna tutta la vista
      */
