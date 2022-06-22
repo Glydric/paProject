@@ -22,5 +22,6 @@ public interface AngleInterface<E extends Number> {
      */
     double getRadians();
 
+    void clear();
 
 }

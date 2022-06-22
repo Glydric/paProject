@@ -33,10 +33,10 @@ public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpre
         switch (values.length) {
             case 0 -> noValueSwitcher(commands.get(0).toUpperCase());
             case 1 -> singleIntegerSwitcher(commands.get(0).toUpperCase(), values[0]);
-            default -> threeByteSwitcher(commands.get(0).toUpperCase(),
-                    (byte) values[0],
-                    (byte) values[1],
-                    (byte) values[2]);
+            default -> threeIntegerSwitcher(commands.get(0).toUpperCase(),
+                    values[0],
+                    values[1],
+                    values[2]);
         }
     }
 
@@ -61,7 +61,7 @@ public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpre
         }
     }
 
-    private void threeByteSwitcher(String command, byte value, byte value1, byte value2) throws IllegalArgumentException {
+    private void threeIntegerSwitcher(String command, int value, int value1, int value2) throws IllegalArgumentException {
         switch (command) {
             case "SETPENCOLOR", "SETPC" -> setPenColor(
                     value,
@@ -181,7 +181,7 @@ public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpre
      * modifica il colore della penna
      */
     @Override
-    public void setPenColor(byte r, byte g, byte b) {
+    public void setPenColor(int r, int g, int b) {
         environment.getCursor().setColor(r, g, b);
     }
 
@@ -194,7 +194,7 @@ public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpre
      * @param b indica l'intensità del blu
      */
     @Override
-    public void setFillColor(byte r, byte g, byte b) {
+    public void setFillColor(int r, int g, int b) {
         environment.setActualAreaColor(r, g, b);
     }
 
@@ -207,7 +207,7 @@ public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpre
      * @param b indica l'intensità del blu
      */
     @Override
-    public void setScreenColor(byte r, byte g, byte b) {
+    public void setScreenColor(int r, int g, int b) {
         environment.setColor(r, g, b);
     }
 

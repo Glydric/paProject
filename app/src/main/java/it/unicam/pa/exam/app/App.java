@@ -8,12 +8,12 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class App extends Application{
+public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/App.fxml")));
         primaryStage.setTitle("Logo App");
-        primaryStage.setScene(new Scene(root, 600, 600));
+        primaryStage.setScene(new Scene(root, AppController.WIDTH, AppController.HEIGHT));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

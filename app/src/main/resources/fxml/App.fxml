@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.shape.Path?>
 
-<AnchorPane fx:id="fieldArea" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER"
-            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.unicam.pa.exam.app.AppController">
+<AnchorPane fx:id="fieldArea" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.pa.exam.app.AppController">
 
 
-    <TextField layoutX="14.0" layoutY="560.0" prefHeight="26.0" prefWidth="246.0" promptText="Insert Command"
-               fx:id="textField"/>
-    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSaveButton" text="Save"/>
-    <Button layoutX="59.0" layoutY="14.0" mnemonicParsing="false" onAction="#onLoadButton" text="Load"/>
-    <Button layoutX="264.0" layoutY="559.0" mnemonicParsing="false" onAction="#onExecuteButton" text="Execute"/>
-    <Path fx:id="drawArea" layoutX="14.0" layoutY="50.0"/>
+    <TextField fx:id="textField" layoutX="14.0" layoutY="560.0" prefHeight="26.0" prefWidth="246.0" promptText="Insert Command" />
+    <Button layoutX="264.0" layoutY="559.0" mnemonicParsing="false" onAction="#onExecuteButton" text="Execute" />
+   <ButtonBar layoutX="12.0" layoutY="14.0" prefHeight="40.0" prefWidth="200.0">
+     <buttons>
+         <Button mnemonicParsing="false" onAction="#onLoadButton" text="Load" />
+         <Button mnemonicParsing="false" onAction="#onSaveButton" text="Save" />
+         <Button mnemonicParsing="false" onAction="#onHomeButton" text="Home" />
+     </buttons>
+   </ButtonBar>
+   <Canvas fx:id="drawArea" height="500.0" layoutX="14.0" layoutY="54.0" width="500.0" />
 </AnchorPane>

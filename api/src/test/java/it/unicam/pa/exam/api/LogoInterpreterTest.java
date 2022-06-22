@@ -37,6 +37,11 @@ public class LogoInterpreterTest {
         assertEquals(l.environment.getCursor().getPosition().getHeight() >> 1, l.environment.getCursor().getPosition().getHome().getX());
         assertEquals(l.environment.getCursor().getPosition().getWidth() >> 1, l.environment.getCursor().getPosition().getHome().getY());
 
+        l.execute("setpencolor 255 255 0");
+        assertEquals(255,l.environment.getCursor().color.getRed());
+        assertEquals(255,l.environment.getCursor().color.getGreen());
+        assertEquals(0,l.environment.getCursor().color.getBlue());
+
         //todo add more test
 
         l.execute("clear");

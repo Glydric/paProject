@@ -65,7 +65,7 @@ public interface LogoInterpreterInterface <E extends AngleInterface<Integer>>{
      * @param g quantità di verde [0,255]
      * @param b quantità di blu [0,255]
      */
-    void setPenColor(byte r, byte g, byte b);
+    void setPenColor(int r, int g, int b);
 
     /**
      * imposta il colore del riempimento di
@@ -75,7 +75,7 @@ public interface LogoInterpreterInterface <E extends AngleInterface<Integer>>{
      * @param g quantità di verde [0,255]
      * @param b quantità di blu [0,255]
      */
-    void setFillColor(byte r, byte g, byte b);
+    void setFillColor(int r, int g, int b);
 
     /**
      * imposta il colore di background
@@ -85,7 +85,7 @@ public interface LogoInterpreterInterface <E extends AngleInterface<Integer>>{
      * @param g quantità di verde [0,255]
      * @param b quantità di blu [0,255]
      */
-    void setScreenColor(byte r, byte g, byte b);
+    void setScreenColor(int r, int g, int b);
 
     /**
      * indica la grandezza del tratto della penna,

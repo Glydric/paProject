@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
     private Color backgroundColor = Color.white;
     private Cursor cursor;
-    private final Stack<ClosedArea> areas = new Stack<>();
+    private final Stack<ColoredClosedArea> areas = new Stack<>();
 
     public LogoEnvironment(int height, int width) {
         setCursor(height, width);
@@ -36,9 +36,9 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
      */
     @Override
     public void setActualAreaColor(Color color) {
-        if (!(areas.get(0) instanceof ColoredClosedArea))
+        if (areas.get(0) == null)
             throw new UnsupportedOperationException("L'area attuale non supporta i colori");
-        ((ColoredClosedArea) areas.peek()).setColor(color);
+        areas.peek().setColor(color);
     }
 
     /**
@@ -49,10 +49,10 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
      * @param b il colore blu
      */
     @Override
-    public void setActualAreaColor(byte r, byte g, byte b) {
-        if (!(areas.get(0) instanceof ColoredClosedArea))
+    public void setActualAreaColor(int r, int g, int b) {
+        if (areas.get(0) == null)
             throw new UnsupportedOperationException("L'area attuale non supporta i colori");
-        ((ColoredClosedArea) areas.peek()).setColor(r, g, b);
+        areas.peek().setColor(r, g, b);
     }
 
     /**
@@ -99,7 +99,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
     }
 
     @Override
-    public void setColor(byte r, byte g, byte b) {
+    public void setColor(int r, int g, int b) {
         backgroundColor = new Color(r, g, b);
     }
 
@@ -107,6 +107,8 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
     public void clear() {
         backgroundColor = Color.white;
         areas.clear();
+        areas.add(new ColoredClosedArea());
+
         cursor.clear();
     }
 
@@ -119,7 +121,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
     }
 
     @Override
-    public List<ClosedArea> getClosedAreas() {
+    public List<ColoredClosedArea> getClosedAreas() {
         return areas.stream().toList();
     }
 

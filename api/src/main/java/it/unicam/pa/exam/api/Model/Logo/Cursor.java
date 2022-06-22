@@ -142,6 +142,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
     public void clear() {
         this.size = 1;
         goToHome();
+        direction.clear();
     }
 
     @Override
@@ -167,7 +168,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
      * @param b il colore blu rappresentato come byte
      */
     @Override
-    public void setColor(byte r, byte g, byte b) {
+    public void setColor(int r, int g, int b) {
         color = new Color(r, g, b);
     }
 

@@ -62,6 +62,11 @@ public class IntegerAngle implements AngleInterface<Integer> {
         return Math.PI * angle / 180;
     }
 
+    @Override
+    public void clear() {
+        angle = 0;
+    }
+
     /**
      * @return un angolo normalizzato a partire dall'angolo che abbiamo.
      * Per normalizzato si intende che è calcolabile da un triangolo, cioè è <90

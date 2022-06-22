@@ -1,16 +1,19 @@
 package it.unicam.pa.exam.api.Model.Logo;
 
-
-import java.awt.Color;
+import java.awt.*;
 
 public class ColoredClosedArea extends ClosedArea {
-    Color color;
+    Color color = Color.black;
 
     public void setColor(Color color) {
         this.color = color;
     }
 
-    public void setColor(byte r, byte g, byte b) {
+    public void setColor(int r, int g, int b) {
         this.color = new Color(r, g, b);
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

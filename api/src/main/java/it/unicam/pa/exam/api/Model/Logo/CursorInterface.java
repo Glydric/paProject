@@ -29,5 +29,5 @@ public interface CursorInterface<E extends AngleInterface<? extends Number>> {
      * @param g il colore verde rappresentato come byte
      * @param b il colore blu rappresentato come byte
      */
-    void setColor(byte r, byte g, byte b);
+    void setColor(int r, int g, int b);
 }

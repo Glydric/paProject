@@ -8,8 +8,6 @@ import it.unicam.pa.exam.api.io.EnvironmentWriter;
 import it.unicam.pa.exam.api.io.LogoEnvironmentLoader;
 import it.unicam.pa.exam.api.io.LogoEnvironmentWriter;
 
-import javax.sound.sampled.Line;
-import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -81,11 +79,15 @@ public class Controller<E extends Environment<C, ColoredLine>, C extends CursorI
         return interpreter.environment.getLines();
     }
 
-    public List<ClosedArea> getAllAreas(){
+    public List<? extends ClosedArea> getAllAreas(){
         return interpreter.environment.getClosedAreas();
     }
 
     public E getEnvironment() {
         return interpreter.environment;
+    }
+
+    public void clear() {
+        interpreter.clear();
     }
 }

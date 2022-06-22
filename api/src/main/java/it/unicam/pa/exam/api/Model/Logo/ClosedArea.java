@@ -1,5 +1,7 @@
 package it.unicam.pa.exam.api.Model.Logo;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,15 +32,34 @@ public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
      */
     @Override
     public boolean isClosed() {
-        return Stream.concat(
-                        coloredLines.stream()
-                                .map(ColoredLine::getP1)
-                        ,
-                        coloredLines.stream()
-                                .map(ColoredLine::getP2))
+        return getPoints()
+                .stream()
                 .distinct()
                 .count()
                 == coloredLines.size();
+    }
+
+    public List<Point2D> getPoints() {
+        return Stream.concat(
+                coloredLines.stream()
+                        .map(ColoredLine::getP1)
+                ,
+                coloredLines.stream()
+                        .map(ColoredLine::getP2)).toList();
+    }
+
+    public double[] getAllX() {
+        return getPoints()
+                .stream()
+                .mapToDouble(Point2D::getX)
+                .toArray();
+    }
+
+    public double[] getAllY() {
+        return getPoints()
+                .stream()
+                .mapToDouble(Point2D::getY)
+                .toArray();
     }
 
     @Override
