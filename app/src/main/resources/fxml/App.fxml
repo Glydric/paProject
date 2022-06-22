@@ -10,6 +10,7 @@
             xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="it.unicam.pa.exam.app.AppController">
 
+
     <TextField layoutX="14.0" layoutY="560.0" prefHeight="26.0" prefWidth="246.0" promptText="Insert Command"
                fx:id="textField"/>
     <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onSaveButton" text="Save"/>
