@@ -3,7 +3,7 @@ package it.unicam.pa.exam.api.Model.Logo;
 /**
  * La seguente classe definisce la direzione (angolo) di un elemento
  */
-public class IntegerAngle implements AngleInterface<Integer> {
+public class IntegerAngle implements Angle<Integer> {
     int angle;
     int max;
 

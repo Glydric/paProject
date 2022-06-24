@@ -1,6 +1,6 @@
 package it.unicam.pa.exam.api.Model;
 
-import it.unicam.pa.exam.api.Model.Logo.DoubleTriangle;
+import it.unicam.pa.exam.api.Model.Triangle.DoubleTriangle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

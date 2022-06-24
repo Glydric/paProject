@@ -2,7 +2,7 @@ package it.unicam.pa.exam.api.Model.Logo;
 
 import java.awt.*;
 
-public interface CursorInterface<E extends AngleInterface<? extends Number>> {
+public interface CursorInterface<E extends Angle<? extends Number>> {
 
     void setSize(int size);
 

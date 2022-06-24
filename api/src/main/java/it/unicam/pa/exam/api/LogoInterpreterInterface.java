@@ -1,10 +1,10 @@
 package it.unicam.pa.exam.api;
 
-import it.unicam.pa.exam.api.Model.Logo.AngleInterface;
+import it.unicam.pa.exam.api.Model.Logo.Angle;
 
 import java.util.List;
 
-public interface LogoInterpreterInterface <E extends AngleInterface<Integer>>  extends Interpreter{
+public interface LogoInterpreterInterface <E extends Angle<Integer>>  extends Interpreter{
 
     /**
      * sposta il cursore in avanti verso la sua direzione (se si raggiungono i limiti dell’area il cursore si ferma al bordo)

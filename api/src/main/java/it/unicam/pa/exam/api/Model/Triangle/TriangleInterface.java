@@ -1,4 +1,4 @@
-package it.unicam.pa.exam.api.Model.Logo;
+package it.unicam.pa.exam.api.Model.Triangle;
 
 public interface TriangleInterface<E extends Number> {
     void setHorizontalCat(E x);
@@ -6,11 +6,11 @@ public interface TriangleInterface<E extends Number> {
     void setIpo(E x);
     void setAngle(int x);
 
-    E getHorizontalCat();
-    E getVerticalCat();
     E getIpo();
     int getAngle();
 
+    E getHorizontalCat();
+    E getVerticalCat();
 
     E calcHorizontal();
     E calcVertical();

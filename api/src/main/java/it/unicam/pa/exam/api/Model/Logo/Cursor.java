@@ -1,5 +1,7 @@
 package it.unicam.pa.exam.api.Model.Logo;
 
+import it.unicam.pa.exam.api.Model.Triangle.DoubleTriangle;
+
 import java.awt.*;
 
 public class Cursor implements CursorInterface<IntegerAngle> {

@@ -1,21 +1,16 @@
-package it.unicam.pa.exam.api.Model.Logo;
+package it.unicam.pa.exam.api.Model.Triangle;
+
+import it.unicam.pa.exam.api.Model.Logo.IntegerAngle;
 
 /**
- * Definisce un triangolo di tipo intero,
- * ci consente di ottenere un cateto da ipotenusa + angolo
+ * Definisce un triangolo di tipo double
+ *
  */
 public class DoubleTriangle implements TriangleInterface<Double> {
     private double horizontalCat;
     private double verticalCat;
     private double ipo;
     IntegerAngle angle;
-
-    /*
-     * La somma degli angoli forma 180º
-     * quindi 180-90=90 è la somma degli altri angoli
-     * se un angolo è di xº l'altro sarà di 90-xº
-     *
-     */
 
     public DoubleTriangle(double ipo, int angle) {
         setIpo(ipo);
@@ -87,9 +82,9 @@ public class DoubleTriangle implements TriangleInterface<Double> {
     }
 
     /**
-     * Sovrascrive il vecchio valore di vertical
+     * Sovrascrive il vecchio valore di vertical calcolato usando ipotenusa ed angolo
      *
-     * @return il cateto orizzontale calcolato usando ipotenusa ed angolo
+     * @return il calcolo del cateto verticale
      */
     public Double calcSaveVertical() {
         verticalCat = calcVertical();
@@ -97,9 +92,9 @@ public class DoubleTriangle implements TriangleInterface<Double> {
     }
 
     /**
-     * Sovrascrive il vecchio valore di horizontal
+     * Sovrascrive il vecchio valore di horizontal calcolato usando ipotenusa ed angolo
      *
-     * @return il cateto orizzontale calcolato usando ipotenusa ed angolo
+     * @return il calcolo del cateto orizzontale
      */
     public Double calcSaveHorizontal() {
         horizontalCat = calcHorizontal();

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public class Controller<E extends Environment<C, ColoredLine>, C extends CursorInterface<A>, A extends AngleInterface<? extends Number>> {
+public class Controller<E extends Environment<C, ColoredLine>, C extends CursorInterface<A>, A extends Angle<? extends Number>> {
     private final EnvironmentWriter<E> environmentWriter;
     private final EnvironmentLoader<E> environmentLoader;
     private LogoInterpreter<E> interpreter;

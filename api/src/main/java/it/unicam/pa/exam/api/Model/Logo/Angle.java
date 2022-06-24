@@ -3,7 +3,7 @@ package it.unicam.pa.exam.api.Model.Logo;
 /**
  * Definisce una direzione tramite un intero che può variare da 0 a 360
  */
-public interface AngleInterface<E extends Number> {
+public interface Angle<E extends Number> {
 
     /**
      * modifica la direzione
