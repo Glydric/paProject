@@ -9,3 +9,6 @@
 
 rootProject.name = 'it.unicam.pa.exam'
 include('app', 'api', 'utilities')
+include 'utilities:util'
+findProject(':utilities:util')?.name = 'util'
+

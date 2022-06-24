@@ -1,13 +1,12 @@
 package it.unicam.pa.exam.api;
 
 import it.unicam.pa.exam.api.Model.Environment;
-import it.unicam.pa.exam.api.Model.Logo.LogoInterpreterInterface;
 import it.unicam.pa.exam.api.Model.Logo.IntegerAngle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpreterInterface<IntegerAngle> {
+public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpreterInterface<IntegerAngle>{
     /**
      * environmentModel è accessibile pubblicamente ed è possibile modificare i suoi valori
      * in accordo al relativo contratto, NON è sostituibile in quanto final

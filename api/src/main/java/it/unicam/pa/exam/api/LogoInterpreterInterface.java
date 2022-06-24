@@ -1,13 +1,11 @@
-package it.unicam.pa.exam.api.Model.Logo;
+package it.unicam.pa.exam.api;
+
+import it.unicam.pa.exam.api.Model.Logo.AngleInterface;
 
 import java.util.List;
 
-public interface LogoInterpreterInterface <E extends AngleInterface<Integer>>{
-    /**
-     * execute interpreta un comando e lo esegue sul proprio environment
-     * @param command il comando logo da interpretare
-     */
-    void execute(String command);
+public interface LogoInterpreterInterface <E extends AngleInterface<Integer>>  extends Interpreter{
+
     /**
      * sposta il cursore in avanti verso la sua direzione (se si raggiungono i limiti dell’area il cursore si ferma al bordo)
      *

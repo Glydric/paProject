@@ -1,0 +1,9 @@
+SETSCREENCOLOR 255 0 0
+setfillcolor 0 0 255
+forward 100
+left 90
+forward 100
+left 90
+forward 100
+left 90
+forward 100
