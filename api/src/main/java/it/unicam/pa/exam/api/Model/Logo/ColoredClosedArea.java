@@ -1,9 +1,10 @@
 package it.unicam.pa.exam.api.Model.Logo;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.util.stream.Collectors;
 
-public class ColoredClosedArea extends ClosedArea {
+public class ColoredClosedArea<L extends Line2D> extends ClosedArea<L> {
     Color color = Color.black;
 
     public void setColor(Color color) {
@@ -18,6 +19,10 @@ public class ColoredClosedArea extends ClosedArea {
         return color;
     }
 
+    public void addLine(L line) {
+        super.addLine(line);
+    }
+
 
     @Override
     public String toString() {
@@ -30,7 +35,7 @@ public class ColoredClosedArea extends ClosedArea {
                 + "\n" +
                 getLines()
                         .stream()
-                        .map(ColoredLine::toString)
+                        .map(Object::toString)
                         .collect(Collectors.joining()) +
                 "<SHAPE>\n";
     }

@@ -9,14 +9,14 @@ import java.util.List;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
+public class LogoEnvironment implements Environment<ColoredLine> {
     private Color backgroundColor = Color.white;
     private Cursor cursor;
-    private final Stack<ColoredClosedArea> areas = new Stack<>();
+    private final Stack<ColoredClosedArea<ColoredLine>> areas = new Stack<>();
 
     public LogoEnvironment(int height, int width) {
         setCursor(height, width);
-        areas.add(new ColoredClosedArea());
+        areas.add(new ColoredClosedArea<>());
     }
 
     public LogoEnvironment(int height, int width, Color bgColor) {
@@ -25,8 +25,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
     }
 
     private void addAreaIfNeed() {
-        if (areas.peek().isClosed())
-            areas.add(new ColoredClosedArea());
+        if (areas.peek().isClosed()) areas.add(new ColoredClosedArea<>());
     }
 
     /**
@@ -35,9 +34,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
      * @param color il colore
      */
     @Override
-    public void setActualAreaColor(Color color) {
-        if (areas.get(0) == null)
-            throw new UnsupportedOperationException("L'area attuale non supporta i colori");
+    public void setAreaColor(Color color) {
         areas.peek().setColor(color);
     }
 
@@ -49,9 +46,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
      * @param b il colore blu
      */
     @Override
-    public void setActualAreaColor(int r, int g, int b) {
-        if (areas.get(0) == null)
-            throw new UnsupportedOperationException("L'area attuale non supporta i colori");
+    public void setAreaColor(int r, int g, int b) {
         areas.peek().setColor(r, g, b);
     }
 
@@ -62,8 +57,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
      * @param width  parametro che definisce la larghezza
      */
     private void setCursor(int height, int width) {
-        if (height < 0 || width < 0)
-            throw new IllegalArgumentException("x o y non possono essere negativi");
+        if (height < 0 || width < 0) throw new IllegalArgumentException("x o y non possono essere negativi");
         this.cursor = new Cursor(new LimitedPoint(width, height));
     }
 
@@ -83,15 +77,16 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
 
         cursor.moveCursor(road);
 
-        if (cursor.getPlot())
-            addLine(before, (Point) cursor.getPosition().clone());
+        if (cursor.getPlot()) addLine(before, (Point) cursor.getPosition().clone());
     }
 
     private void addLine(Point p1, Point p2) {
+//        areas.peek().addLine((L) new ColoredLine(p1, p2, cursor.color, cursor.getSize()));
         areas.peek().addLine(new ColoredLine(p1, p2, cursor.color, cursor.getSize()));
 
         addAreaIfNeed();
     }
+
 
     @Override
     public Cursor getCursor() {
@@ -108,21 +103,17 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
         backgroundColor = Color.white;
 
         areas.clear();
-        areas.add(new ColoredClosedArea());
+        areas.add(new ColoredClosedArea<>());
 
         cursor.clear();
     }
 
-    @Override
     public List<ColoredLine> getLines() {
-        return areas.stream()
-                .map(ClosedArea::getLines)
-                .flatMap(Collection::stream)
-                .toList();
+        return areas.stream().map(ColoredClosedArea::getLines).flatMap(Collection::stream).toList();
     }
 
     @Override
-    public List<ColoredClosedArea> getClosedAreas() {
+    public List<ColoredClosedArea<ColoredLine>> getAreas() {
         return areas.stream().toList();
     }
 
@@ -132,13 +123,6 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
 
     @Override
     public String toString() {
-        return "SIZE " + cursor.getPosition().maxToString() + " ["
-                + backgroundColor.getRed() + ','
-                + backgroundColor.getGreen() + ','
-                + backgroundColor.getBlue() + "]\n"
-                + areas
-                .stream()
-                .map(ClosedArea::toString)
-                .collect(Collectors.joining());
+        return "SIZE " + cursor.getPosition().maxToString() + " [" + backgroundColor.getRed() + ',' + backgroundColor.getGreen() + ',' + backgroundColor.getBlue() + "]\n" + areas.stream().map(ClosedArea::toString).collect(Collectors.joining());
     }
 }

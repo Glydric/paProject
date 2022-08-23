@@ -1,8 +1,6 @@
 package it.unicam.pa.exam.api.Model;
 
-import it.unicam.pa.exam.api.Model.Logo.ColoredLine;
-import it.unicam.pa.exam.api.Model.Logo.ClosedArea;
-import it.unicam.pa.exam.api.Model.Logo.SquareLimitedPoint;
+import it.unicam.pa.exam.api.Model.Logo.*;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
@@ -12,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ClosedAreaTest {
     @Test
     void AddLineTest(){
-        ClosedArea a = new ClosedArea();
+        ClosedArea<Line> a = new ClosedArea<>();
         a.addLine(
                 new ColoredLine(
                     new SquareLimitedPoint(10, 25, 50),
@@ -26,7 +24,7 @@ public class ClosedAreaTest {
     }
     @Test
     void isClosedTest() {
-        ClosedArea a = new ClosedArea();
+        ClosedArea<ColoredLine> a = new ClosedArea<>();
         a.addLine(new ColoredLine(
                 new SquareLimitedPoint(10, 20, 50),
                 new SquareLimitedPoint(15, 20, 50),

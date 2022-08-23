@@ -1,10 +1,8 @@
 package it.unicam.pa.exam.app;
 
-import com.sun.source.doctree.ThrowsTree;
 import it.unicam.pa.exam.api.Controller;
-import it.unicam.pa.exam.api.Model.Logo.*;
-import it.unicam.pa.exam.api.Model.Logo.Cursor;
 import it.unicam.pa.exam.api.Model.LogoEnvironment;
+import it.unicam.pa.exam.api.Model.Logo.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -19,17 +17,15 @@ import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Gestisce l'integrazione tra Model e View
  */
 public class AppController {
-    Controller<LogoEnvironment, Cursor, IntegerAngle> controller = Controller.getLogoController(HEIGHT, WIDTH);
+    final Controller<LogoEnvironment> controller = Controller.getStandardLogoController(HEIGHT, WIDTH);
     //todo consenti l'espandibilità del controller
 
     public static final int WIDTH = 500;
@@ -59,7 +55,7 @@ public class AppController {
         refreshView();
     }
 
-    void fileCheck(ThrowsInterface<File, IOException> c, File toSave) {
+    void fileCheck(ThrowableInterface<File, IOException> c, File toSave) {
         if (toSave != null) {
             try {
                 c.execute(toSave);
@@ -137,25 +133,26 @@ public class AppController {
      *
      * @param area l'area di riferimento
      */
-    private void drawArea(ClosedArea area) {
+    private void drawArea(ClosedArea<ColoredLine> area) {
         GraphicsContext graphics = drawArea.getGraphicsContext2D();
-
 
         if (area.isClosed()) {
             if (area instanceof ColoredClosedArea)
-                graphics.setFill(getPaintFrom(((ColoredClosedArea) area).getColor()));
+                graphics.setFill(getPaintFrom(((ColoredClosedArea<ColoredLine>) area).getColor()));
             graphics.fillPolygon(area.getAllX(), area.getAllY(), area.getPoints().size());
         }
 
         area.getLines().forEach(this::drawLine);
     }
 
-    private void drawLine(ColoredLine l) {
+    private void drawLine(Line2D line) {
         GraphicsContext graphics = drawArea.getGraphicsContext2D();
 
-        graphics.setStroke(getPaintFrom(l.getColor()));
-        graphics.setLineWidth(l.getSize());
-        graphics.strokeLine(l.getX1(), l.getY1(), l.getX2(), l.getY2());
+        if (line instanceof ColoredLine coloredLine) {
+            graphics.setStroke(getPaintFrom(coloredLine.getColor()));
+            graphics.setLineWidth(coloredLine.getSize());
+        }
+        graphics.strokeLine(line.getX1(), line.getY1(), line.getX2(), line.getY2());
     }
 
     private Paint getPaintFrom(Color color) {
@@ -172,6 +169,6 @@ public class AppController {
         graphics.setFill(getPaintFrom(controller.getEnvironment().getBackgroundColor()));
         graphics.fillRect(0, 0, WIDTH, HEIGHT);
 
-        controller.getAllAreas().forEach(this::drawArea);
+        controller.getEnvironment().getAreas().forEach(this::drawArea);
     }
 }

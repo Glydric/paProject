@@ -1,27 +1,28 @@
 package it.unicam.pa.exam.api;
 
 import it.unicam.pa.exam.api.Model.Environment;
-import it.unicam.pa.exam.api.Model.Logo.*;
+import it.unicam.pa.exam.api.Model.Logo.ClosedArea;
 import it.unicam.pa.exam.api.Model.LogoEnvironment;
 import it.unicam.pa.exam.api.io.EnvironmentLoader;
 import it.unicam.pa.exam.api.io.EnvironmentWriter;
 import it.unicam.pa.exam.api.io.LogoEnvironmentLoader;
 import it.unicam.pa.exam.api.io.LogoEnvironmentWriter;
 
+import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public class Controller<E extends Environment<C, ColoredLine>, C extends CursorInterface<A>, A extends Angle<? extends Number>> {
+public class Controller<E extends Environment<? extends Line2D>> {
     private final EnvironmentWriter<E> environmentWriter;
     private final EnvironmentLoader<E> environmentLoader;
     private LogoInterpreter<E> interpreter;
 
-    public static Controller<LogoEnvironment, Cursor, IntegerAngle> getLogoController(int height, int width){
+    public static Controller<LogoEnvironment> getStandardLogoController(int height, int width){
         return new Controller<>(
                 new LogoEnvironmentLoader(),
-                new LogoEnvironmentWriter(),
+                new LogoEnvironmentWriter<>(),
                 new LogoInterpreter<>(
                         new LogoEnvironment(height,width)
                 )
@@ -75,12 +76,8 @@ public class Controller<E extends Environment<C, ColoredLine>, C extends CursorI
         interpreter.execute(command);
     }
 
-    public List<ColoredLine> getAllLines(){
+    public List<?> getAllLines(){
         return interpreter.environment.getLines();
-    }
-
-    public List<? extends ClosedArea> getAllAreas(){
-        return interpreter.environment.getClosedAreas();
     }
 
     public E getEnvironment() {

@@ -6,6 +6,7 @@ import java.awt.*;
 
 public class Cursor implements CursorInterface<IntegerAngle> {
     public Color color = Color.black;
+    //todo colore dell'area mancante
     private final LimitedPoint position;
     private final IntegerAngle direction;
     private int size;

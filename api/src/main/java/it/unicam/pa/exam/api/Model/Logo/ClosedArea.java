@@ -1,32 +1,31 @@
 package it.unicam.pa.exam.api.Model.Logo;
 
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * Questa classe salva una lista di linee finchè la stessa non sia chiusa
  */
-public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
-    private final List<ColoredLine> coloredLines = new ArrayList<>();
+public class ClosedArea<L extends Line2D> implements ClosedAreaInterface<L> {
+    private final List<L> lines = new ArrayList<>();
 
     /**
      * @return tutte le linee di questa area
      */
-    public List<ColoredLine> getLines() {
-        return coloredLines;
+    public List<L> getLines() {
+        return lines;
     }
 
     @Override
-    public void addLine(ColoredLine coloredLine) {
-        if (!coloredLine.getP1().equals(coloredLine.getP2())
-                && (coloredLines.size() == 0 || !isClosed())
+    public void addLine(L line) {
+        if (!line.getP1().equals(line.getP2())
+                && (lines.size() == 0 || !isClosed())
         ) {
-            coloredLines.add(coloredLine);
+            lines.add(line);
         }
     }
 
@@ -42,22 +41,16 @@ public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
                 .stream()
                 .distinct()
                 .count()
-                == coloredLines.size();
-//                .count()
-//                ==
-//                getPoints()
-//                        .stream()
-//                        .distinct()
-//                        .count() * 2;
+                == lines.size();
     }
 
     public List<Point2D> getPoints() {
         return Stream.concat(
-                coloredLines.stream()
-                        .map(ColoredLine::getP1)
+                lines.stream()
+                        .map(Line2D::getP1)
                 ,
-                coloredLines.stream()
-                        .map(ColoredLine::getP2)
+                lines.stream()
+                        .map(Line2D::getP2)
         ).toList();
     }
 
@@ -77,12 +70,12 @@ public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
 
     @Override
     public String toString() {
-        return coloredLines.isEmpty()
+        return lines.isEmpty()
                 ? ""
                 : "<SHAPE>\n" +
-                coloredLines
+                lines
                         .stream()
-                        .map(ColoredLine::toString)
+                        .map(Line2D::toString)
                         .collect(Collectors.joining()) +
                 "<SHAPE>\n";
     }

@@ -1,16 +1,15 @@
 package it.unicam.pa.exam.api.Model;
 
 import it.unicam.pa.exam.api.Model.Logo.ClosedArea;
-import it.unicam.pa.exam.api.Model.Logo.CursorInterface;
+import it.unicam.pa.exam.api.Model.Logo.Cursor;
 
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.util.List;
 
-public interface Environment<E extends CursorInterface<?>, L extends Line2D> {
-    void setActualAreaColor(Color color);
+public interface Environment<L extends Shape> {
+    void setAreaColor(Color color);
 
-    void setActualAreaColor(int r, int g, int b);
+    void setAreaColor(int r, int g, int b);
 
     int getHeight();
 
@@ -18,7 +17,7 @@ public interface Environment<E extends CursorInterface<?>, L extends Line2D> {
 
     void write(int road);
 
-    E getCursor();
+    Cursor getCursor();
 
     void setColor(int r, int g, int b);
 
@@ -26,5 +25,5 @@ public interface Environment<E extends CursorInterface<?>, L extends Line2D> {
 
     List<L> getLines();
 
-    List<? extends ClosedArea> getClosedAreas();
+    List<? extends ClosedArea<?>> getAreas();
 }

@@ -1,7 +1,6 @@
 package it.unicam.pa.exam.api.Model;
 
 import it.unicam.pa.exam.api.Model.Logo.Cursor;
-import it.unicam.pa.exam.api.Model.Logo.LimitedPoint;
 import it.unicam.pa.exam.api.Model.Logo.SquareLimitedPoint;
 import org.junit.jupiter.api.Test;
 

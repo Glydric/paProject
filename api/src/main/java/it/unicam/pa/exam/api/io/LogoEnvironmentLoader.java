@@ -3,8 +3,6 @@ package it.unicam.pa.exam.api.io;
 import it.unicam.pa.exam.api.LogoInterpreter;
 import it.unicam.pa.exam.api.Model.LogoEnvironment;
 
-import java.io.IOException;
-
 public class LogoEnvironmentLoader implements EnvironmentLoader<LogoEnvironment> {
     @Override
     public LogoEnvironment parse(String content) {

@@ -3,11 +3,11 @@ package it.unicam.pa.exam.api;
 import it.unicam.pa.exam.api.Model.Environment;
 import it.unicam.pa.exam.api.Model.Logo.IntegerAngle;
 
-import java.util.ArrayList;
+import java.awt.geom.Line2D;
 import java.util.Arrays;
 import java.util.List;
 
-public class LogoInterpreter<E extends Environment<?, ?>> implements LogoInterpreterInterface<IntegerAngle> {
+public class LogoInterpreter<E extends Environment<? extends Line2D>> implements LogoInterpreterInterface<IntegerAngle> {
     /**
      * environmentModel è accessibile pubblicamente ed è possibile modificare i suoi valori
      * in accordo al relativo contratto, NON è sostituibile in quanto final
@@ -207,7 +207,7 @@ public class LogoInterpreter<E extends Environment<?, ?>> implements LogoInterpr
      */
     @Override
     public void setFillColor(int r, int g, int b) {
-        environment.setActualAreaColor(r, g, b);
+        environment.setAreaColor(r, g, b);
     }
 
     /**

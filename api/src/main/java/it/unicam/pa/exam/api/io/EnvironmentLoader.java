@@ -1,16 +1,14 @@
 package it.unicam.pa.exam.api.io;
 
 import it.unicam.pa.exam.api.Model.Environment;
-import it.unicam.pa.exam.api.Model.Logo.CursorInterface;
 
-import java.awt.geom.Line2D;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 @FunctionalInterface
-public interface EnvironmentLoader<E extends Environment<? extends CursorInterface<?>, ? extends Line2D>> {
+public interface EnvironmentLoader<E extends Environment<?>> {
 
     /**
      * Trasforma una stringa in un environment
