@@ -1,9 +1,3 @@
-forward 10
-left 90
-forward 10
-left 90
-forward 10
-left 90
-forward 10
+repeat 4 [forward 10,left 90]
 right 15
 forward 20

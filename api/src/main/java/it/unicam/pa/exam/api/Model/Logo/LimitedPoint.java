@@ -1,7 +1,6 @@
 package it.unicam.pa.exam.api.Model.Logo;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.Objects;
 
 /**
@@ -62,6 +61,18 @@ public class LimitedPoint extends Point {
     }
 
     /**
+     * prende il massimo tra 0 e i valori
+     * contemporaneamente prende il minimo tra il value ed il suo max
+     * cosi facendo se il valore x o y è minore di 0 prendiamo 0, se è maggiore di max prendiamo max
+     *
+     * @param value il valore di riferimento
+     * @return il risultato dell'operazione
+     */
+    private int getValueInRangeZeroMax(int value, int max) {
+        return Math.max(0, Math.min(value, max));
+    }
+
+    /**
      * Imposta la coordinata del punto
      *
      * @param x coordinata x
@@ -69,12 +80,11 @@ public class LimitedPoint extends Point {
      */
     @Override
     public void setLocation(int x, int y) {
-        if (x < 0) throw new IllegalArgumentException("Parametro x negativo");
-        if (y < 0) throw new IllegalArgumentException("Parametro y negativo");
-
+        // prende il massimo tra 0 e i valori, contemporaneamente prende il minimo tra il valore ed il suo max
+        // cosi facendo se il valore x o y è minore di 0 prendiamo 0, se è maggiore di max prendiamo max
         super.setLocation(
-                Math.min(x, width),
-                Math.min(y, height)
+                getValueInRangeZeroMax(x, width),
+                getValueInRangeZeroMax(y, height)
         );
     }
 
@@ -87,11 +97,6 @@ public class LimitedPoint extends Point {
     public void setLocation(Point p) {
         setLocation(p.x, p.y);
     }
-
-//    @Override
-//    public void setLocation(Point2D p) {
-//        setLocation(p.getX(), p.getY());
-//    }
 
     /**
      * Prende i seguenti parametri ed incrementa il valore della posizione
@@ -139,8 +144,13 @@ public class LimitedPoint extends Point {
         return Objects.hash(x, y, height, width);
     }
 
+
     @Override
     public String toString() {
-        return "<"+ width + "> <" + height + ">";
+        return "(" + x + ";" + y + ")";
+    }
+
+    public String maxToString() {
+        return "<" + height + "> <" + width + ">";
     }
 }

@@ -4,9 +4,10 @@ import it.unicam.pa.exam.api.Model.Environment;
 import it.unicam.pa.exam.api.Model.Logo.IntegerAngle;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpreterInterface<IntegerAngle>{
+public class LogoInterpreter<E extends Environment<?, ?>> implements LogoInterpreterInterface<IntegerAngle> {
     /**
      * environmentModel è accessibile pubblicamente ed è possibile modificare i suoi valori
      * in accordo al relativo contratto, NON è sostituibile in quanto final
@@ -22,34 +23,46 @@ public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpre
      *
      * @param rawCommand il comando logo da interpretare
      */
-    public void execute(String rawCommand) throws IllegalArgumentException{
-        ArrayList<String> commands = new ArrayList<>(
-                List.of(
-                        rawCommand.split(" ")
-                )
-        );
-        int[] values = getIntArrayFromList(commands);
-        switch (values.length) {
-            case 0 -> noValueSwitcher(commands.get(0).toUpperCase());
-            case 1 -> singleIntegerSwitcher(commands.get(0).toUpperCase(), values[0]);
-            default -> threeIntegerSwitcher(commands.get(0).toUpperCase(),
-                    values[0],
-                    values[1],
-                    values[2]);
+    public void execute(String rawCommand) throws IllegalArgumentException {
+        List<String> commands = List.of(rawCommand.split(" "));
+
+        String command = commands.get(0).toUpperCase();
+
+        if (command.equals("REPEAT")) {
+            List<String> commandList = Arrays
+                    .stream(rawCommand
+                            .split("\\[")[1]
+                            .split("]")[0]
+                            .split(",")
+                    )
+                    .map(String::strip)
+                    .toList();
+            repeat(Integer.parseInt(commands.get(1)), commandList);
+        } else {
+            int[] values = listToIntArray(commands);
+            switch (values.length) {
+                case 0 -> noValueSwitcher(command);
+                case 1 -> singleIntegerSwitcher(command, values[0]);
+                default -> threeIntegerSwitcher(command,
+                        values[0],
+                        values[1],
+                        values[2]);
+            }
         }
+
     }
 
-    private void noValueSwitcher(String command) throws IllegalArgumentException{
+    private void noValueSwitcher(String command) throws IllegalArgumentException {
         switch (command) {
             case "CLEARSCREEN", "CLEAR", "CS" -> clear();
             case "HOME" -> home();
             case "PENUP", "PU" -> penUp();
             case "PENDOWN", "PD" -> penDown();
-            default -> throw new IllegalArgumentException("Comando non trovato");
+            default -> throw new IllegalArgumentException("Comando " +command+" non trovato");
         }
     }
 
-    private void singleIntegerSwitcher(String command, int value) throws IllegalArgumentException{
+    private void singleIntegerSwitcher(String command, int value) throws IllegalArgumentException {
         switch (command) {
             case "FORWARD", "FD" -> forward(value);
             case "BACK", "BACKWARD", "BK" -> backward(value);
@@ -60,7 +73,8 @@ public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpre
         }
     }
 
-    private void threeIntegerSwitcher(String command, int value, int value1, int value2) throws IllegalArgumentException {
+    private void threeIntegerSwitcher(String command, int value, int value1, int value2) throws
+            IllegalArgumentException {
         switch (command) {
             case "SETPENCOLOR", "SETPC" -> setPenColor(
                     value,
@@ -78,14 +92,13 @@ public class LogoInterpreter<E extends Environment<?,?>> implements LogoInterpre
         }
     }
 
-
     /**
      * Skip first element that is the actual command
      *
      * @param values the list
      * @return an array of int
      */
-    private int[] getIntArrayFromList(List<String> values) {
+    private int[] listToIntArray(List<String> values) {
         return values
                 .stream()
                 .skip(1)

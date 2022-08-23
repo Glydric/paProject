@@ -16,7 +16,7 @@
      <buttons>
          <Button mnemonicParsing="false" onAction="#onLoadButton" text="Load" />
          <Button mnemonicParsing="false" onAction="#onSaveButton" text="Save" />
-         <Button mnemonicParsing="false" onAction="#onHomeButton" text="Home" />
+         <Button mnemonicParsing="false" onAction="#onClearButton" text="Clear" />
      </buttons>
    </ButtonBar>
    <Canvas fx:id="drawArea" height="500.0" layoutX="14.0" layoutY="54.0" width="500.0" />

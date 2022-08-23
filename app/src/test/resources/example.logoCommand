@@ -1,0 +1,12 @@
+setscreencolor 255 0 0
+setpencolor 0 255 0
+setpensize 5
+repeat 4 [forward 100,left 90]
+right 90
+penup
+forward 100
+pendown
+setpensize 10
+setpencolor 255 255 0
+setfillcolor 0 0 255
+repeat 4 [forward 100,left 90]

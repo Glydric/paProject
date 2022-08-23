@@ -82,6 +82,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
         return position;
     }
 
+
     /**
      * Consente di muovere il cursore in relazione alla direzione definita dall'angolo
      *
@@ -97,7 +98,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
                     : road;
 
             position.incrementLocation(
-                    direction.getAngle() == 0 || direction.getAngle() == 180
+                    direction.getAngle() == 0 || direction.getAngle() == 180 || direction.getAngle() == 360
                             ? realRoad
                             : 0
                     ,

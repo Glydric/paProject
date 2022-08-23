@@ -1,5 +1,6 @@
 package it.unicam.pa.exam.app;
 
+import com.sun.source.doctree.ThrowsTree;
 import it.unicam.pa.exam.api.Controller;
 import it.unicam.pa.exam.api.Model.Logo.*;
 import it.unicam.pa.exam.api.Model.Logo.Cursor;
@@ -20,18 +21,19 @@ import javafx.stage.FileChooser;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Gestisce l'integrazione tra Model e View
  */
 public class AppController {
-    Controller<LogoEnvironment, Cursor, IntegerAngle> controller = Controller.getLogoController(
-            (int) (HEIGHT * 0.8),
-            (int) (WIDTH * 0.8)
-    );
+    Controller<LogoEnvironment, Cursor, IntegerAngle> controller = Controller.getLogoController(HEIGHT, WIDTH);
+    //todo consenti l'espandibilità del controller
 
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = 600;
+    public static final int WIDTH = 500;
+    public static final int HEIGHT = 500;
     public AnchorPane fieldArea;
     public Canvas drawArea;
 
@@ -54,10 +56,20 @@ public class AppController {
      * inizializza l'area di disegno con il colore di sfondo selezionato
      */
     public void initialize() {
-        GraphicsContext graphics = drawArea.getGraphicsContext2D();
+        refreshView();
+    }
 
-        graphics.setFill(getPaint(controller.getEnvironment().getBackgroundColor()));
-        graphics.fillRect(0, 0, WIDTH, HEIGHT);
+    void fileCheck(ThrowsInterface<File, IOException> c, File toSave) {
+        if (toSave != null) {
+            try {
+                c.execute(toSave);
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error with file " + e);
+                alert.setHeaderText(e.getMessage());
+                alert.show();
+            }
+        }
 
     }
 
@@ -67,24 +79,14 @@ public class AppController {
      * @param event l'evento
      */
     @FXML
-    private void onSaveButton(Event event) {//todo can you reduce method size?
+    private void onSaveButton(Event event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Insert a filename");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Logo Files", ".*logo")
-        );
-        File selectedFile = fileChooser.showSaveDialog(((Node) event.getSource()).getScene().getWindow());//todo check use
-        if (selectedFile != null) {
-            try {
-                controller.save(selectedFile);
-            } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error save file " + e);
-                alert.setHeaderText(e.getMessage());
-                alert.show();
-            }
-        }
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Logo Files", ".*logo"));
+        File selectedFile = fileChooser.showSaveDialog(((Node) event.getSource()).getScene().getWindow());
+        fileCheck(controller::save, selectedFile);
     }
+
 
     /**
      * metodo chiamato quando viene premuto il tasto load
@@ -92,23 +94,12 @@ public class AppController {
      * @param actionEvent l'evento
      */
     @FXML
-    private void onLoadButton(ActionEvent actionEvent) {//todo can you reduce method size?
+    private void onLoadButton(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Insert a filename");
-        fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Logo command", "*.logoCommand")
-        );
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Logo command", "*.logoCommand"));
         File selectedFile = fileChooser.showOpenDialog(((Node) actionEvent.getSource()).getScene().getWindow());
-        if (selectedFile != null) {
-            try {
-                controller.load(selectedFile);
-            } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error loading file " + e);
-                alert.setHeaderText(e.getMessage());
-                alert.show();
-            }
-        }
+        fileCheck(controller::load, selectedFile);
         refreshView();
     }
 
@@ -133,6 +124,12 @@ public class AppController {
         refreshView();
     }
 
+    public void onClearButton(ActionEvent actionEvent) {
+        controller.clear();
+        textField.setText("");
+        refreshView();
+    }
+
     /**
      * Disegna un'area se è chiusa
      * Se l'area ha un colore lo applica
@@ -143,9 +140,10 @@ public class AppController {
     private void drawArea(ClosedArea area) {
         GraphicsContext graphics = drawArea.getGraphicsContext2D();
 
+
         if (area.isClosed()) {
             if (area instanceof ColoredClosedArea)
-                graphics.setFill(getPaint(((ColoredClosedArea) area).getColor()));
+                graphics.setFill(getPaintFrom(((ColoredClosedArea) area).getColor()));
             graphics.fillPolygon(area.getAllX(), area.getAllY(), area.getPoints().size());
         }
 
@@ -155,16 +153,13 @@ public class AppController {
     private void drawLine(ColoredLine l) {
         GraphicsContext graphics = drawArea.getGraphicsContext2D();
 
-        graphics.setStroke(getPaint(l.getColor()));
+        graphics.setStroke(getPaintFrom(l.getColor()));
+        graphics.setLineWidth(l.getSize());
         graphics.strokeLine(l.getX1(), l.getY1(), l.getX2(), l.getY2());
     }
 
-    private Paint getPaint(Color color) {
-        return javafx.scene.paint.Color.rgb(
-                color.getRed(),
-                color.getGreen(),
-                color.getBlue()
-        );
+    private Paint getPaintFrom(Color color) {
+        return javafx.scene.paint.Color.rgb(color.getRed(), color.getGreen(), color.getBlue());
     }
 
 
@@ -174,13 +169,9 @@ public class AppController {
     private void refreshView() {
         GraphicsContext graphics = drawArea.getGraphicsContext2D();
 
-        initialize();
-        controller.getAllAreas().forEach(this::drawArea);
-        //todo add pen size
-    }
+        graphics.setFill(getPaintFrom(controller.getEnvironment().getBackgroundColor()));
+        graphics.fillRect(0, 0, WIDTH, HEIGHT);
 
-    public void onHomeButton(ActionEvent actionEvent) {
-        controller.getEnvironment().getCursor().goToHome();
-        refreshView();
+        controller.getAllAreas().forEach(this::drawArea);
     }
 }

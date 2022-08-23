@@ -13,7 +13,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/App.fxml")));
         primaryStage.setTitle("Logo App");
-        primaryStage.setScene(new Scene(root, AppController.WIDTH, AppController.HEIGHT));
+        primaryStage.setScene(new Scene(root, AppController.WIDTH * 1.2, AppController.HEIGHT * 1.2));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

@@ -49,25 +49,35 @@ public class CursorTest {
     void testXDirection() {
         Cursor c = new Cursor(new SquareLimitedPoint(30, 50, 100), 30);
 
-        c.setDirection(180);
-        c.moveCursor(20);
-        assertEquals(10, c.getPosition().getX());
-
         c.setDirection(0);
         c.moveCursor(30);
+        assertEquals(60, c.getPosition().getX());
+        assertEquals(50, c.getPosition().getY());
+
+        c.setDirection(180);
+        c.moveCursor(20);
         assertEquals(40, c.getPosition().getX());
+        assertEquals(50, c.getPosition().getY());
+
+        c.setDirection(360);
+        c.moveCursor(30);
+        assertEquals(70, c.getPosition().getX());
+        assertEquals(50, c.getPosition().getY());
     }
 
     @Test
     void testYDirection() {
         Cursor c = new Cursor(new SquareLimitedPoint(20, 50, 100), 30);
 
-        c.setDirection(270);
-        c.moveCursor(20);
-        assertEquals(30, c.getPosition().getY());
-
         c.setDirection(90);
         c.moveCursor(10);
+        assertEquals(60, c.getPosition().getY());
+        assertEquals(20, c.getPosition().getX());
+
+        c.setDirection(270);
+        c.moveCursor(20);
         assertEquals(40, c.getPosition().getY());
+        assertEquals(20, c.getPosition().getX());
+
     }
 }

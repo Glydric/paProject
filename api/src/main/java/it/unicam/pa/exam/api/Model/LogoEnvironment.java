@@ -106,6 +106,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
     @Override
     public void clear() {
         backgroundColor = Color.white;
+
         areas.clear();
         areas.add(new ColoredClosedArea());
 
@@ -131,7 +132,7 @@ public class LogoEnvironment implements Environment<Cursor, ColoredLine> {
 
     @Override
     public String toString() {
-        return "SIZE " + cursor.getPosition() + " ["
+        return "SIZE " + cursor.getPosition().maxToString() + " ["
                 + backgroundColor.getRed() + ','
                 + backgroundColor.getGreen() + ','
                 + backgroundColor.getBlue() + "]\n"

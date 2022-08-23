@@ -1,12 +1,16 @@
 package it.unicam.pa.exam.api.Model.Logo;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Questa classe salva una lista di linee finchè la stessa non sia chiusa
+ */
 public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
     private final List<ColoredLine> coloredLines = new ArrayList<>();
 
@@ -19,7 +23,9 @@ public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
 
     @Override
     public void addLine(ColoredLine coloredLine) {
-        if (coloredLines.size() == 0 || !isClosed()) {
+        if (!coloredLine.getP1().equals(coloredLine.getP2())
+                && (coloredLines.size() == 0 || !isClosed())
+        ) {
             coloredLines.add(coloredLine);
         }
     }
@@ -37,6 +43,12 @@ public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
                 .distinct()
                 .count()
                 == coloredLines.size();
+//                .count()
+//                ==
+//                getPoints()
+//                        .stream()
+//                        .distinct()
+//                        .count() * 2;
     }
 
     public List<Point2D> getPoints() {
@@ -45,7 +57,8 @@ public class ClosedArea implements ClosedAreaInterface<ColoredLine> {
                         .map(ColoredLine::getP1)
                 ,
                 coloredLines.stream()
-                        .map(ColoredLine::getP2)).toList();
+                        .map(ColoredLine::getP2)
+        ).toList();
     }
 
     public double[] getAllX() {

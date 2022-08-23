@@ -18,13 +18,13 @@ public class LogoInterpreterTest {
 
     @Test
     void executeText() {
-        LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new SquareLogoEnvironment(50));
+        LogoInterpreter<LogoEnvironment> l = new LogoInterpreter<>(new SquareLogoEnvironment(100));
 
         l.execute("forward 20");
-        assertEquals(45, l.environment.getCursor().getPosition().getX());
+        assertEquals(70, l.environment.getCursor().getPosition().getX());
 
         l.execute("backward 10");
-        assertEquals(35, l.environment.getCursor().getPosition().getX());
+        assertEquals(60, l.environment.getCursor().getPosition().getX());
 
         l.execute("left 45");
         assertEquals(45, l.environment.getCursor().getDirection().getAngle());
@@ -38,16 +38,27 @@ public class LogoInterpreterTest {
         assertEquals(l.environment.getCursor().getPosition().getWidth() >> 1, l.environment.getCursor().getPosition().getHome().getY());
 
         l.execute("setpencolor 255 255 0");
-        assertEquals(255,l.environment.getCursor().color.getRed());
-        assertEquals(255,l.environment.getCursor().color.getGreen());
-        assertEquals(0,l.environment.getCursor().color.getBlue());
-
-        //todo add more test
+        assertEquals(255, l.environment.getCursor().color.getRed());
+        assertEquals(255, l.environment.getCursor().color.getGreen());
+        assertEquals(0, l.environment.getCursor().color.getBlue());
 
         l.execute("clear");
         assertEquals(l.environment.getCursor().getPosition().getHome().getX(), l.environment.getCursor().getPosition().getX());
         assertEquals(l.environment.getCursor().getPosition().getHome().getY(), l.environment.getCursor().getPosition().getY());
 
+        l.execute("repeat 4 [right 90, forward 10]");
+        assertEquals(4, l.environment.getLines().size());
+        l.clear();
+
+        l.execute("setfillcolor 0 0 255");
+        l.execute("setpensize 5");
+        l.execute("repeat 4 [forward 100,left 90]");
+        l.execute("right 90");
+        l.execute("penup");
+        l.execute("forward 100");
+        l.execute("pendown");
+        l.execute("setpensize 10");
+        l.execute("repeat 4 [forward 100,left 90]");
     }
 
     @Test

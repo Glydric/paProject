@@ -15,7 +15,7 @@ import java.io.IOException;
 public class ControllerTest {
     @Test
     void loadTest() throws IOException {
-        Controller<LogoEnvironment, Cursor, IntegerAngle> controller = new Controller<>(new LogoEnvironmentLoader(), new LogoEnvironmentWriter(), new LogoInterpreter<>(new LogoEnvironment(600, 600)));
+        Controller<LogoEnvironment, Cursor, IntegerAngle> controller = new Controller(new LogoEnvironmentLoader(), new LogoEnvironmentWriter(), new LogoInterpreter<>(new LogoEnvironment(600, 600)));
         controller.load(new File("src/test/resources/LogoEnvironmentCommands"));
         controller.save(new File("src/test/resources/LogoEnvironmentResults"));
     }

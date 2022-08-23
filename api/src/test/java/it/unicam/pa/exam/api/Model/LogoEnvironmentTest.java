@@ -18,6 +18,9 @@ public class LogoEnvironmentTest {
     @Test
     void writeTest() {
         LogoEnvironment e = new SquareLogoEnvironment(50, new Color(255, 0, 0));
+        e.getCursor().setSize(5);
+        assertEquals(5, e.getCursor().getSize());
+
         e.write(10);
     }
 

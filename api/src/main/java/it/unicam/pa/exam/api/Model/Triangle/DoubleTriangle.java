@@ -116,6 +116,4 @@ public class DoubleTriangle implements TriangleInterface<Double> {
     public Double calcHorizontal() {
         return ipo * Math.sin(Math.PI / 2 - angle.getRadians()) / Math.sin(Math.PI / 2);
     }
-
-
 }
