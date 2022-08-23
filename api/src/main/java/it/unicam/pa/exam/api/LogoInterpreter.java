@@ -167,7 +167,7 @@ public class LogoInterpreter<E extends Environment<? extends Line2D>> implements
      */
     @Override
     public void home() {
-        environment.getCursor().goToHome();
+        environment.getCursor().goHome();
     }
 
     /**

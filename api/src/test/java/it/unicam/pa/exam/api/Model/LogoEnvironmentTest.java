@@ -38,7 +38,7 @@ public class LogoEnvironmentTest {
         e.write(10);
         e.write(10);
 
-        assertEquals(1, e.getClosedAreas().size());
+        assertEquals(1, e.getAreas().size());
 
     }
 }

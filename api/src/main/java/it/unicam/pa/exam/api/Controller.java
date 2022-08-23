@@ -76,9 +76,6 @@ public class Controller<E extends Environment<? extends Line2D>> {
         interpreter.execute(command);
     }
 
-    public List<?> getAllLines(){
-        return interpreter.environment.getLines();
-    }
 
     public E getEnvironment() {
         return interpreter.environment;

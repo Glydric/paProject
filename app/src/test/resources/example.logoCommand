@@ -1,5 +1,6 @@
 setscreencolor 255 0 0
 setpencolor 0 255 0
+setfillcolor 255 0 255
 setpensize 5
 repeat 4 [forward 100,left 90]
 right 90

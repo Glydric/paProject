@@ -7,7 +7,6 @@ import java.awt.*;
 import java.util.List;
 
 public interface Environment<L extends Shape> {
-    void setAreaColor(Color color);
 
     void setAreaColor(int r, int g, int b);
 

@@ -5,7 +5,15 @@ import java.awt.geom.Line2D;
 import java.util.stream.Collectors;
 
 public class ColoredClosedArea<L extends Line2D> extends ClosedArea<L> {
-    Color color = Color.black;
+    private Color color;
+
+    public ColoredClosedArea() {
+        setColor(Color.black);
+    }
+
+    public ColoredClosedArea(Color color) {
+        setColor(color);
+    }
 
     public void setColor(Color color) {
         this.color = color;

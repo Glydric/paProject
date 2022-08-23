@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Cursor implements CursorInterface<IntegerAngle> {
     public Color color = Color.black;
-    //todo colore dell'area mancante
+    public Color areaColor = Color.black;
     private final LimitedPoint position;
     private final IntegerAngle direction;
     private int size;
@@ -26,7 +26,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
     /**
      * Costruttore per un cursore che definisce la direzione iniziale
      *
-     * @param width la larghezza massima
+     * @param width  la larghezza massima
      * @param height l'altezza massima
      */
     public Cursor(int width, int height) {
@@ -144,8 +144,9 @@ public class Cursor implements CursorInterface<IntegerAngle> {
      * Pulisce il cursore impostandolo alla propria home
      */
     public void clear() {
-        this.size = 1;
-        goToHome();
+        goHome();
+        setSize(1);
+        this.color = Color.black;
         direction.clear();
     }
 
@@ -160,7 +161,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
     }
 
     @Override
-    public void goToHome() {
+    public void goHome() {
         setPosition(position.getHome());
     }
 
@@ -176,7 +177,7 @@ public class Cursor implements CursorInterface<IntegerAngle> {
         color = new Color(r, g, b);
     }
 
-    public Color getColor() {
-        return color;
+    public void setAreaColor(int r, int g, int b) {
+        this.areaColor = new Color(r, g, b);
     }
 }

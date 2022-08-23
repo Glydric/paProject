@@ -26,7 +26,6 @@ import java.io.IOException;
  */
 public class AppController {
     final Controller<LogoEnvironment> controller = Controller.getStandardLogoController(HEIGHT, WIDTH);
-    //todo consenti l'espandibilità del controller
 
     public static final int WIDTH = 500;
     public static final int HEIGHT = 500;

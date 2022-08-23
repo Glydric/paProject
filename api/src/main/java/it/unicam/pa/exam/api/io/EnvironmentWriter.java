@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @FunctionalInterface
-public interface EnvironmentWriter<E extends Environment<?,?>> {
+public interface EnvironmentWriter<E extends Environment<?>> {
 
     /**
      * Trasforma l'environment in una stringa che lo rappresenta

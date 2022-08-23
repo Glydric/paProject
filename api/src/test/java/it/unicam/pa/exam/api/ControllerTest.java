@@ -1,6 +1,5 @@
 package it.unicam.pa.exam.api;
 
-import it.unicam.pa.exam.api.Model.Logo.IntegerAngle;
 import it.unicam.pa.exam.api.Model.LogoEnvironment;
 import it.unicam.pa.exam.api.io.LogoEnvironmentLoader;
 import it.unicam.pa.exam.api.io.LogoEnvironmentWriter;

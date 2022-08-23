@@ -12,7 +12,7 @@ public interface CursorInterface<E extends Angle<? extends Number>> {
     /**
      * Imposta il cursore nella posizione della propria home
      */
-    void goToHome();
+    void goHome();
 
     E getDirection();
 

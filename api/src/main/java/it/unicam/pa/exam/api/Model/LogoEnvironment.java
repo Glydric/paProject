@@ -16,7 +16,7 @@ public class LogoEnvironment implements Environment<ColoredLine> {
 
     public LogoEnvironment(int height, int width) {
         setCursor(height, width);
-        areas.add(new ColoredClosedArea<>());
+        areas.add(new ColoredClosedArea<>(cursor.areaColor));
     }
 
     public LogoEnvironment(int height, int width, Color bgColor) {
@@ -25,17 +25,8 @@ public class LogoEnvironment implements Environment<ColoredLine> {
     }
 
     private void addAreaIfNeed() {
-        if (areas.peek().isClosed()) areas.add(new ColoredClosedArea<>());
-    }
-
-    /**
-     * Modifica il colore dell'area che stiamo disegnando attualmente
-     *
-     * @param color il colore
-     */
-    @Override
-    public void setAreaColor(Color color) {
-        areas.peek().setColor(color);
+        if (areas.peek().isClosed())
+            areas.add(new ColoredClosedArea<>(cursor.areaColor));
     }
 
     /**
@@ -47,7 +38,9 @@ public class LogoEnvironment implements Environment<ColoredLine> {
      */
     @Override
     public void setAreaColor(int r, int g, int b) {
-        areas.peek().setColor(r, g, b);
+        if (areas.peek().getLines().size() == 0)
+            areas.peek().setColor(r, g, b);
+        cursor.setAreaColor(r, g, b);
     }
 
     /**
